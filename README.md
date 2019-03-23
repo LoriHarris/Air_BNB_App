@@ -8,12 +8,12 @@
 ###### http://insideairbnb.com/get-the-data.html
 ###### https://www.brewerydb.com/
 ###### https://dev.socrata.com/data/ 
-####### Inspo images/maps in screeshots folder:
-######## insideairbnb.PNG
-######## tripadvisor.PNG
-######## walkability.PNG
-######## opendatanetwork.PNG
-######## bikestations_opendata.PNG
+##### Inspo images/maps in screeshots folder:
+####### insideairbnb.PNG
+####### tripadvisor.PNG
+####### walkability.PNG
+####### opendatanetwork.PNG
+####### bikestations_opendata.PNG
 
 
 
