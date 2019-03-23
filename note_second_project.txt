@@ -1,0 +1,32 @@
+Groups of 3-4
+Task: tell a story through data visualizations
+- focused on providing users an interactive means to explore data themselves
+- conduct 10 minute presentation:
+# lays out theme
+# coding approach
+# data munging techniques
+# final visualization(s)
+
+- choose project of any theme, think broadly
+- will have roughly two weeks to complete
+- present final work on Sat 4/6
+- ample time in class to work w/ group
+
+Reqs: 
+# Python Flask, powered by RESTful API, HTML/CSS, JavaScript, and at least one database (MySQL, MongoDB, SQLite, etc.)
+# Fall into one of 4 tracks
+1. custom creative d3.js
+2. combo Web Scraping and Leaflet or Plotly
+3. dashboard page w/ multiple charts all updatihng from the same data
+4. "thick" server that performs multiple manipulations on data in a database prior to viz
+# include at least one js library that we did not cover
+# powered by datase w/ at least 100 records
+# user-driven interaction (e.g. menus, dropdowns, textboxes, etc.)
+# final viz should ideally include at least *three views*
+
+Timeline
+# B/W now and Saturday, start brainstorming
+# By end of class Saturday => 1 page proposal
+    - brief articulation of chosen topic and rationale
+    - link to dataset(s) and screenshot of metadata that exists
+    -
