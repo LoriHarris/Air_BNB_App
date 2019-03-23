@@ -8,6 +8,15 @@
 ###### http://insideairbnb.com/get-the-data.html
 ###### https://www.brewerydb.com/
 ###### https://dev.socrata.com/data/ 
+####### Inspo images/maps in screeshots folder:
+######## insideairbnb.PNG
+######## tripadvisor.PNG
+######## walkability.PNG
+######## opendatanetwork.PNG
+######## bikestations_opendata.PNG
+
+
+
 
 #### Ideal visuals: Map w/ layers and filters such as
 ###### Crime data (shading i.e. choropleth)
