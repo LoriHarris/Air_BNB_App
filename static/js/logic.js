@@ -7,9 +7,8 @@ d3.json(queryUrl, function(data) {
 function createFeatures(airbnbData) {
 
 // makes the borough outlines
-    //need to edit to make borough name pop up; current reads undefined. 
   function onEachFeature (feature, layer) {
-     layer.bindPopup("<h3>" + feature[0] +
+     layer.bindPopup("<h3>" + feature.properties.neighbourhood +
       "</h3>");
   }
     var neighborhoods = L.geoJSON(airbnbData, {
@@ -38,8 +37,8 @@ var overlayMaps = {
  };
 
 var myMap = L.map("map", {
-    center: [29.95, -90.0715],
-    zoom: 5,
+    center: [30.0300, -90.0456],
+    zoom: 11,
     layers: [lightmap, neighborhoods]
   });
 
