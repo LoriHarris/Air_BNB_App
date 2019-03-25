@@ -1,4 +1,4 @@
-# Air_BNB_App - Project 2
+# Airbnb_App - Project 2
 ### Members: Rachel Powell, Lori Harris, Brianna McKelvey, Laura Lancheros
 #### Github repo: https://github.com/LoriHarris/Air_BNB_App
 
@@ -19,6 +19,7 @@
 
 
 #### Ideal visuals: Map w/ layers and filters such as
+###### Neighborhood boundaries
 ###### Crime data (shading i.e. choropleth)
 ###### Brewery data (markers with different shapes)
 ###### Reviews and price
