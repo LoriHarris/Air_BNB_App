@@ -3,6 +3,9 @@ from flask_pymongo import PyMongo
 import pandas as pd
 import pymongo
 from pymongo import MongoClient
+import os
+from bson.objectid import ObjectId
+
 
 
 # app = Flask(__name__)
@@ -35,7 +38,16 @@ def names():
     # Return a list of the column names (sample names)
     return jsonify(list(data.neighbourhood))
 
+@app.route("/listings/<sample>")
+def listings(sample):
 
+    client = MongoClient()
+    db = client.air_bnb
+    collection = db.listings
+  
+    data = pd.DataFrame(list(collection.find({})))
+
+    return jsonify(list(data))
 
 
 if __name__== '__main__':

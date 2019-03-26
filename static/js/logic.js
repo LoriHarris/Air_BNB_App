@@ -21,9 +21,9 @@ d3.json(url, function(response) {
   function createFeatures(neighborhoodData) {
     
     for (var i = 0; i < neighborhoodData.length; i++) {
-      var geometry =neighborhoodData[i].geometry;
-      neighborhood_list.push(feature.properties.neighbourhood);
-      var magRadius = properties.mag;
+      // var geometry =neighborhoodData[i].geometry;
+      // neighborhood_list.push(feature.properties.neighbourhood);
+      // var magRadius = properties.mag;
    
       function onEachFeature(feature, layer) {
         layer.bindPopup("<h3>" + feature.properties.neighbourhood + "</h3><hr>");
@@ -49,8 +49,8 @@ var streetmap = L.tileLayer("https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.pn
   id: "mapbox.streets",
   accessToken: API_KEY
 });
-var magnitude = L.featureGroup(circles);
-var popUp1 = L.featureGroup(popUp);
+// var magnitude = L.featureGroup(circles);
+// var popUp1 = L.featureGroup(popUp);
 
 var basemaps = {
   "Satellite Map" : satellite,
@@ -92,23 +92,14 @@ L.control.layers(basemaps, overlaymaps, {
 
 // function init() {
   // Grab a reference to the dropdown select element
-var selector = d3.select("#selDataset");
 
-// Use the list of sample names to populate the select options
-d3.json("/names").then((sampleNames) => {
-  sampleNames.forEach((sample) => {
-    selector
-      .append("option")
-      .text(sample)
-      
-  });
 
   //   // Use the first sample from the list to build the initial plots
   //   const firstSample = sampleNames[0];
   //   buildCharts(firstSample);
   //   buildMetadata(firstSample);
   // });
-}
+// }
 
 // function optionChanged(newSample) {
 //   // Fetch new data each time a new sample is selected
