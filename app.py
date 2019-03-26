@@ -1,10 +1,11 @@
-from flask import Flask, render_template, redirect, jsonify
+from flask import Flask, render_template, redirect, jsonify, request
 from flask_pymongo import PyMongo
 import pandas as pd
 import pymongo
 from pymongo import MongoClient
 import os
 from bson.objectid import ObjectId
+import pprint
 
 
 
@@ -38,16 +39,34 @@ def names():
     # Return a list of the column names (sample names)
     return jsonify(list(data.neighbourhood))
 
-@app.route("/listings/<sample>")
-def listings(sample):
+@app.route("/listings/<name>")
+def listings(name):
 
     client = MongoClient()
-    db = client.air_bnb
-    collection = db.listings
-  
-    data = pd.DataFrame(list(collection.find({})))
+    db = client["air_bnb"]
+    collection = db["listings"]
 
-    return jsonify(list(data))
+    data1 = {}
+    myquery = {"neighbourhood":{ "$eq": (name) }}
+    for listing in collection.find(myquery):
+        data1.update({'id':listing['id'],
+        'host_id':listing['host_id'],
+        'Host_Name': listing['host_name'],
+        'Description':listing['name'],
+        'Neighborhood':listing['neighbourhood'],
+        'Latitude':listing['latitude'],
+        'Longitude': listing['longitude'],
+        'Room_Type': listing['room_type'],
+        'Price':listing['price'],
+        'Minimum_Stay':listing ['minimum_nights'],
+        'Number_Reviews':listing['number_of_reviews'],
+        'Most_Recent_Review':listing['last_review'],
+        'Reviews_per_month':listing['reviews_per_month'],
+        'Availability':listing['availability_365']
+        })
+    print(data1)
+    return jsonify(data1)
+   
 
 
 if __name__== '__main__':
