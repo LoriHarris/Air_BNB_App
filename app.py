@@ -6,6 +6,7 @@ from pymongo import MongoClient
 import os
 from bson.objectid import ObjectId
 import pprint
+import sys
 
 
 
@@ -13,7 +14,7 @@ import pprint
 app = Flask(__name__, static_url_path='', static_folder="")
 # setup mongo connection
 
-mongo = PyMongo(app, uri="mongodb://localhost:27017/air_bnb")
+mongo = PyMongo(app, uri="mongodb://Lori:Les4783!@ds223756.mlab.com:23756/heroku_r58qkhd7")
 
 # connect to mongo db and collection
 
@@ -23,7 +24,9 @@ mongo = PyMongo(app, uri="mongodb://localhost:27017/air_bnb")
 def index():
     # write a statement that finds all the items in the db and sets it to a variable
     listings_info = mongo.db.listings.find_one()
-    return render_template("index.html", data=listings_info)
+    json_info = mongo.db.geojson.find_one({})
+  
+    return render_template("index.html", data=json_info)
 
 
 @app.route("/names")
@@ -31,20 +34,19 @@ def names():
     """Return a list of sample names."""
 
     # Use Pandas to perform the sql query
-    client = MongoClient()
-    db = client.air_bnb
-    collection = db.neighborhoods
+    
+    collection = mongo.db.neighborhoods
     data = pd.DataFrame(list(collection.find({})))
-
     # Return a list of the column names (sample names)
     return jsonify(list(data.neighbourhood))
 
 @app.route("/listings/<name>")
 def listings(name):
 
-    client = MongoClient()
-    db = client["air_bnb"]
-    collection = db["listings"]
+    
+    # client = MongoClient()
+    # db = client["air_bnb"]
+    collection = mongo.db["listings"]
 
     data1 = {}
     myquery = {"neighbourhood":{ "$eq": (name) }}
