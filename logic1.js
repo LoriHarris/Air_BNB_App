@@ -1,9 +1,11 @@
 // Store our API endpoint inside queryUrl
-var queryUrl = `Bike Share Stations.geojson`
+// var queryUrl = `Bike Share Stations.geojson`
+var queryUrl = "https://data.nola.gov/resource/ybia-9nsr.geojson"
 // Perform a GET request to the query URL
 d3.json(queryUrl, function(data) {
   // Once we get a response, send the data.features object to the createFeatures function
   createFeatures(data.features);
+  console.log(data.features)
 });
 
 function createFeatures(bikeData) {
