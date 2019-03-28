@@ -7,6 +7,7 @@ import os
 from bson.objectid import ObjectId
 import pprint
 import sys
+import json
 
 
 
@@ -39,6 +40,37 @@ def names():
     data = pd.DataFrame(list(collection.find({})))
     # Return a list of the column names (sample names)
     return jsonify(list(data.neighbourhood))
+# db.inventory.find( { size: { h: 14, w: 21, uom: "cm" } } )
+
+@app.route("/geojson")
+def geojson():
+    collection = mongo.db.geojson
+    data = {}
+    myquery = {}   
+
+    for json in collection.find(myquery):
+        data.update({'type': json['features']})
+    print(data)
+    
+    return jsonify(data)
+
+@app.route("/reviews_json")
+def reviews_json():
+    collection = mongo.db.reviews_json
+    data = {}
+    myquery = {}   
+
+    for json in collection.find(myquery):
+        data.update({'id': json['id'],
+        'listing_id' : json['listing_id'],
+        'date' : json['date'],
+        'reviewer_id': json['reviewer_id'],
+        'reviewer_name' :json['reviewer_name'],
+        'comments' : json['comments']      
+        })
+    print(data)
+    
+    return jsonify(data)
 
 @app.route("/listings/<name>")
 def listings(name):
@@ -66,8 +98,11 @@ def listings(name):
         'Reviews_per_month':listing['reviews_per_month'],
         'Availability':listing['availability_365']
         })
-    print(data1)
+    # print(data1)
+
     return jsonify(data1)
+
+
    
 
 
