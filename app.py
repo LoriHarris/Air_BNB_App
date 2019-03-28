@@ -29,6 +29,37 @@ def names():
     collection = mongo.db.neighborhoods
     data = pd.DataFrame(list(collection.find({})))
     return jsonify(list(data.neighbourhood))
+# db.inventory.find( { size: { h: 14, w: 21, uom: "cm" } } )
+
+@app.route("/geojson")
+def geojson():
+    collection = mongo.db.geojson
+    data = {}
+    myquery = {}   
+
+    for json in collection.find(myquery):
+        data.update({'type': json['features']})
+    print(data)
+    
+    return jsonify(data)
+
+@app.route("/reviews_json")
+def reviews_json():
+    collection = mongo.db.reviews_json
+    data = {}
+    myquery = {}   
+
+    for json in collection.find(myquery):
+        data.update({'id': json['id'],
+        'listing_id' : json['listing_id'],
+        'date' : json['date'],
+        'reviewer_id': json['reviewer_id'],
+        'reviewer_name' :json['reviewer_name'],
+        'comments' : json['comments']      
+        })
+    print(data)
+    
+    return jsonify(data)
 
 @app.route("/geojson")
 def geojson():

@@ -1,7 +1,8 @@
-var url = "/static/neighbourhoods.geojson";
+var url = "/geojson";
 
 var neighborhood_list = [];
 var popUp = [];
+
 function getColor(d) {
   return d < 1 ? '#ffffcc' :
          d < 2  ? '#ffeda0' :
@@ -12,10 +13,34 @@ function getColor(d) {
          d < 7   ? '#e31a1c' :
          d < 8   ? '#bd0026' :
                     '#800026';
-}
-d3.json(url, function(response) {
+} 
+
+console.log(name);
+function buildMetadata(sample) {
+  n_name();
+    function n_name() {
+      name = sample;
+    };
+  d3.json(`/listings/${sample}`, function(data) {
+    console.log(data);
     
-    createFeatures(response.features);
+        var lat = data.Latitude;
+        var lon = data.Longitude;
+        var descrip = data.Description;
+        var neigh = data.Neighborhood;
+      
+    popUp.push(
+      L.Marker(([lat, lon]))
+      .bindPopup("<h3>" + neigh + "<h3><h3>Capacity: " + descrip + "<h3>"));
+    
+  }
+  )};
+
+
+d3.json("/geojson", function(response) {
+    console.log(response.type)
+    createFeatures(response.type);
+    
   });
   
   function createFeatures(neighborhoodData) {
@@ -26,8 +51,10 @@ d3.json(url, function(response) {
       // var magRadius = properties.mag;
    
       function onEachFeature(feature, layer) {
-        layer.bindPopup("<h3>" + feature.properties.neighbourhood + "</h3><hr>");
-  }
+        // popUp.push(
+        // layer.bindPopup("<h3>" + feature.properties.neighbourhood + "</h3><hr>")
+        // )
+      };
 
     var neighbourhoods = L.geoJSON(neighborhoodData, {
       onEachFeature: onEachFeature
@@ -35,7 +62,7 @@ d3.json(url, function(response) {
     
   }; 
 
-console.log(neighborhoodData);
+console.log(popUp);
 var satellite = L.tileLayer("https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}", {
   attribution: "Map data &copy; <a href=\"https://www.openstreetmap.org/\">OpenStreetMap</a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>, Imagery © <a href=\"https://www.mapbox.com/\">Mapbox</a>",
   maxZoom: 18,
@@ -50,7 +77,7 @@ var streetmap = L.tileLayer("https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.pn
   accessToken: API_KEY
 });
 // var magnitude = L.featureGroup(circles);
-// var popUp1 = L.featureGroup(popUp);
+var popUp1 = L.layerGroup(popUp);
 
 var basemaps = {
   "Satellite Map" : satellite,
@@ -58,7 +85,7 @@ var basemaps = {
 };
 var overlaymaps = {
   "Neighborhoods" :neighbourhoods,
-  // "Popup" : popUp1
+  "Popup" : popUp1
 };
 var myMap = L.map("map", {
   center: [29.95, -89.75],
@@ -90,22 +117,3 @@ L.control.layers(basemaps, overlaymaps, {
   
 
 
-// function init() {
-  // Grab a reference to the dropdown select element
-
-
-  //   // Use the first sample from the list to build the initial plots
-  //   const firstSample = sampleNames[0];
-  //   buildCharts(firstSample);
-  //   buildMetadata(firstSample);
-  // });
-// }
-
-// function optionChanged(newSample) {
-//   // Fetch new data each time a new sample is selected
-//   buildCharts(newSample);
-//   buildMetadata(newSample);
-// }
-
-// Initialize the dashboard
-// init();
