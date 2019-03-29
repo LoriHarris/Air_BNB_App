@@ -27,12 +27,29 @@ for (var i = 0; i < data.length; i++) {
     fillOpacity: 0.75,
     color: "white",
     fillColor: "purple",
-  }).bindPopup("<h1>" + data[i].name + "</h1> <hr> <h3>Population: " + data[i].price + "</h3>").addTo(myMap));
+  }).bindPopup("<h1>" + data[i].name + "</h1> <hr> <h3>Price: " + data[i].price + "</h3>").addTo(myMap));
 }
 
 myMap.addLayer(markers)
 });
 
+museum_file = "../../data/Museums.geojson"
+
+d3.json(museum_file, function(data) {
+  // console.log(data)
+  createFeatures(data.features);
+});
+
+function createFeatures(museumData) {
+
+  function onEachFeature(feature, layer) {
+    // console.log(feature.properties)
+    layer.bindPopup("<h3>" + feature.properties.museum +
+      "</h3>")
+  }
+  var museum = L.geoJson(museumData, {
+    onEachFeature: onEachFeature
+  }).addTo(myMap);
 
 
 
@@ -43,23 +60,3 @@ myMap.addLayer(markers)
 
 
 
-
-
-    // console.log(data);
-//     for (var i=0; i <data.length; i++) {
-//         id = [data[i].id]
-//         name = [data[i].name]
-//         coordinates = [data[i].latitude, data[i].longitude]
-//         cost= [data[i].price]
-//         beds = [data[i].beds]
-//         bathrooms = [data[i].bathrooms]
-
-//     // console.log(id,name, coordinates, cost, beds, bathrooms)
-//     }
-// details.id = id;
-// details.name = name;
-// details.coordinates = coordinates
-// console.log(details)
-// });
-
-// Loop through the cities array and create one marker for each city object
