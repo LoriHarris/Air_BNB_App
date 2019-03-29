@@ -29,37 +29,6 @@ def names():
     collection = mongo.db.neighborhoods
     data = pd.DataFrame(list(collection.find({})))
     return jsonify(list(data.neighbourhood))
-# db.inventory.find( { size: { h: 14, w: 21, uom: "cm" } } )
-
-@app.route("/geojson")
-def geojson():
-    collection = mongo.db.geojson
-    data = {}
-    myquery = {}   
-
-    for json in collection.find(myquery):
-        data.update({'type': json['features']})
-    print(data)
-    
-    return jsonify(data)
-
-@app.route("/reviews_json")
-def reviews_json():
-    collection = mongo.db.reviews_json
-    data = {}
-    myquery = {}   
-
-    for json in collection.find(myquery):
-        data.update({'id': json['id'],
-        'listing_id' : json['listing_id'],
-        'date' : json['date'],
-        'reviewer_id': json['reviewer_id'],
-        'reviewer_name' :json['reviewer_name'],
-        'comments' : json['comments']      
-        })
-    print(data)
-    
-    return jsonify(data)
 
 @app.route("/geojson")
 def geojson():
@@ -75,6 +44,28 @@ def geojson():
 @app.route("/bikeshare")
 def bikeshare():
     collection = mongo.db.bikeshare_json
+    data = {}
+    myquery = {}   
+
+    for json in collection.find(myquery):
+        data.update({'type': json['features']})
+    
+    return jsonify(data)
+
+@app.route("/museums")
+def museums():
+    collection = mongo.db.museums_json
+    data = {}
+    myquery = {}   
+
+    for json in collection.find(myquery):
+        data.update({'type': json['features']})
+    
+    return jsonify(data)
+
+@app.route("/listings")
+def full_listings():
+    collection = mongo.db.listings
     data = {}
     myquery = {}   
 
@@ -130,7 +121,5 @@ def listings(name):
 
 
 
-if __name__== '__main__':
-    app.run(debug=True)
 if __name__== '__main__':
     app.run(debug=True)

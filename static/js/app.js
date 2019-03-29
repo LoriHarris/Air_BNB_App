@@ -1,7 +1,11 @@
 function buildMetadata(sample) {
+  n_name();
+    function n_name() {
+      name = sample;
+    };
   d3.json(`/listings/${sample}`, function(data) {
     var data = [data];
-    console.log(data);
+    // console.log(data);
   var meta_chart = d3.select("#sample-metadata");
   meta_chart.html("");
   data.forEach((data) => {
@@ -11,7 +15,7 @@ function buildMetadata(sample) {
       
       cell.text(`${key}: ${value}`);
       
-    console.log(`Key: ${key} | Value: ${value}`);
+    // console.log(`Key: ${key} | Value: ${value}`);
     });
   });
 });
