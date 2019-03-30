@@ -1,3 +1,4 @@
+    
 from flask import Flask, render_template, redirect, jsonify, request
 from flask_pymongo import PyMongo
 import pandas as pd
@@ -52,6 +53,28 @@ def bikeshare():
     
     return jsonify(data)
 
+@app.route("/museums")
+def museums():
+    collection = mongo.db.museums_json
+    data = {}
+    myquery = {}   
+
+    for json in collection.find(myquery):
+        data.update({'type': json['features']})
+    
+    return jsonify(data)
+
+@app.route("/listings")
+def full_listings():
+    collection = mongo.db.listings
+    data = {}
+    myquery = {}   
+
+    for json in collection.find(myquery):
+        data.update({'type': json['features']})
+    
+    return jsonify(data)
+
 @app.route("/reviews_json")
 def reviews_json():
     collection = mongo.db.reviews_json
@@ -68,6 +91,25 @@ def reviews_json():
         })
     
     return jsonify(data)
+
+
+@app.route("/hood_json")
+def hood_json():
+    collection = mongo.db.hood_profiles_json
+    data = {}
+    myquery = {}   
+
+    for json in collection.find(myquery):
+        data.update({'Name': json['Name'],
+        'Rank#' : json['Rank#'],
+        'Walk Score' : json['Walk Score'],
+        'Transit Score': json['Transit Score'],
+        'Bike Score' :json['Bike Score'],
+        'Population' : json['Population']      
+        })
+    
+    return jsonify(data)
+
 
 @app.route("/listings/<name>")
 def listings(name):

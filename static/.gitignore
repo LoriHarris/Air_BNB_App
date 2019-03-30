@@ -1,0 +1,4 @@
+config.js
+*.csv
+*.json
+*.gz
