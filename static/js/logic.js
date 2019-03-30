@@ -3,6 +3,7 @@ var url = "/geojson";
 var neighborhood_list = [];
 var popUp = [];
 var bikeUp = [];
+var hosts = [];
 
 function getColor(d) {
  return d < 1 ? '#ffffcc' :
@@ -40,22 +41,39 @@ d3.json("/geojson", function(response) {
  };
 
 d3.json("/bikeshare", function(bikeresponse) {
-//  console.log(bikeresponse.type);
- createBikes(bikeresponse.type);
+  console.log(bikeresponse.type);
+  createBikes(bikeresponse.type);
+});
+  function createBikes(bikeData) {
+    
+    for (var i = 0; i < bikeData.length; i++) {
+      var geometry = bikeData[i].geometry;
+      var properties = bikeData[i].properties;
+      if (geometry) {
+        bikeUp.push(
+          L.marker(([geometry.coordinates[1], geometry.coordinates[0]]), 
+        )
+        .bindPopup("<h3>Magnitude: " + properties.sign_type + "<h3><h3>Location: " + properties.station_number + "<h3>")
+        .on('click'))  
+        };
+    };
+   
+d3.json("/listings", function(data) {
+  console.log(data)
+createHosts(data);
 });
 
- function createBikes(bikeData) {
-   for (var i = 0; i < bikeData.length; i++) {
-     var geometry = bikeData[i].geometry;
-     if (geometry) {
-       bikeUp.push(
-         L.circleMarker(([geometry.coordinates[1], geometry.coordinates[0]]), 
-         {fillColor: "blue",
-         radius: 10}
-         )
-         )};       
-         }
-   
+function createHosts (hostData) {
+    
+  var markers = L.markerClusterGroup();
+
+for (var i = 0; i < hostData.length; i++) {
+    var coordinates = [hostData[i].latitude, hostData[i].longitude];
+    // console.log(coordinates) 
+
+    markers.addLayer(L.marker(coordinates).bindPopup("<h1>" + hostData[i].name + "</h1> <hr> <h3>Price: " + hostData[i].price + "</h3>"));
+    console.log(hosts)
+  }
 
   d3.json("/museums", function(data) {
   createMuseums(data.type);
@@ -73,22 +91,6 @@ function createMuseums(museumData) {
   var museums = L.geoJson(museumData, 
   {onEachFeature: onEachFeature 
     });
-
-
-d3.json("/listings", function(data) {
-  console.log(data)
-createHosts(data);
-});
-
-// function createHosts (hostData) {
-//   console.log(hostData)
-//   var markers = L.markerClusterGroup();
-
-//   for (var i = 0; i < hostData.length; i++) {
-//     var coordinates = [hostData[i].latitude, hostData[i].longitude];
-  
-//     markers.addLayer(L.marker(coordinates).bindPopup("<h1>" + hostData[i].name + "</h1> <hr> <h3>Price: " + hostData[i].price + "</h3>"));
-//   }
 
 
 // console.log(bikeUp);
@@ -116,7 +118,8 @@ var basemaps = {
 var overlaymaps = {
  "Bike Stations" : bikeUp1,
  "Neighborhoods" : neighbourhoods,
- "Museums": museums
+ "Museums": museums,
+ "Airbnb Hosts": markers
 //  "Airbnb Hosts": markers
 };
 var myMap = L.map("map", {
@@ -127,4 +130,4 @@ var myMap = L.map("map", {
 
 L.control.layers(basemaps, overlaymaps, {
  collapsed: false
-}).addTo(myMap)}}}};
+}).addTo(myMap)}}}}};

@@ -72,10 +72,12 @@ def reviews_json():
 @app.route("/listings")
 def full_listings():
    collection = mongo.db.listings_json
-   data = {}
+   listings = []
    myquery = {}
-
+   # myquery = {"price":{ "$eq": "300" }}
+   print('query', collection.find(myquery))
    for json in collection.find(myquery):
+       data = {}
        data.update({'listing_url': json['listing_url'],
        'name': json['name'],
        'host_name' : json['neighbourhood_cleansed'],
@@ -90,8 +92,11 @@ def full_listings():
        'price' : json['price'],
        'minimum_nights' : json['minimum_nights']
        })
+       listings.append(data)
 
-   return jsonify(data)
+   print('data', data)
+
+   return jsonify(listings)
 
 @app.route("/museums")
 def museums():
