@@ -3,7 +3,7 @@ var url = "/geojson";
 var neighborhood_list = [];
 var popUp = [];
 var bikeUp = [];
-
+var musUp = [];
 function getColor(d) {
   return d < 1 ? '#ffffcc' :
          d < 2  ? '#ffeda0' :
@@ -17,12 +17,20 @@ function getColor(d) {
 } 
 
 
-var myIcon = 
+var bikeIcon = 
        L.ExtraMarkers.icon({
         icon: "ion-android-bicycle",
         iconColor: "white",
         markerColor: "orange",
         shape: "circle"
+        });
+
+var musIcon = 
+      L.ExtraMarkers.icon({
+        icon: "ion-ios-book",
+        iconColor: "white",
+        markerColor: "green",
+        shape: "star"
         });
 d3.json("/geojson", function(response) {
     console.log(response.type)
@@ -34,24 +42,15 @@ d3.json("/geojson", function(response) {
   function createFeatures(neighborhoodData) {
     
     for (var i = 0; i < neighborhoodData.length; i++) {
-      // var geometry =neighborhoodData[i].geometry;
-      // neighborhood_list.push(feature.properties.neighbourhood);
-      // var magRadius = properties.mag;
-   
+      
       function onEachFeature(feature, layer) {
-        // popUp.push(
-        // layer.bindPopup("<h3>" + feature.properties.neighbourhood + "</h3><hr>")
-        // )
       };
 
     var neighbourhoods = L.geoJSON(neighborhoodData, {
       onEachFeature: function (feature, layer) {
         layer.bindPopup('<h1>'+feature.properties.neighbourhood+'</h1>');
       }
-      
-    })
-    
-    
+    }) 
   }; 
   
 d3.json("/bikeshare", function(bikeresponse) {
@@ -66,14 +65,32 @@ d3.json("/bikeshare", function(bikeresponse) {
       if (geometry) {
         bikeUp.push(
           L.marker(([geometry.coordinates[1], geometry.coordinates[0]]), {
-            icon:myIcon
+            icon:bikeIcon
         }
         )
         .bindPopup("<h3>Magnitude: " + properties.sign_type + "<h3><h3>Location: " + properties.station_number + "<h3>")
         .on('click'))  
         };
     };
-  
+    d3.json("/museums", function(mus_response) {
+      console.log(mus_response.type);
+      createBikes(mus_response.type);
+    });
+      function createBikes(musData) {
+        
+        for (var i = 0; i < musData.length; i++) {
+          var geometry = musData[i].geometry;
+          var properties = musData[i].properties;
+          if (geometry) {
+            musUp.push(
+              L.marker(([geometry.coordinates[1], geometry.coordinates[0]]), {
+                icon:musIcon
+            }
+            )
+            .bindPopup("<h3>Magnitude: " + properties.museum + "<h3><h3>Location: " + properties.address + "<h3>")
+            .on('click'))  
+            };
+        };
 console.log(bikeUp);
 var satellite = L.tileLayer("https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}", {
   attribution: "Map data &copy; <a href=\"https://www.openstreetmap.org/\">OpenStreetMap</a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>, Imagery © <a href=\"https://www.mapbox.com/\">Mapbox</a>",
@@ -91,6 +108,7 @@ var streetmap = L.tileLayer("https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.pn
 // var magnitude = L.featureGroup(circles);
 var popUp1 = L.layerGroup(popUp);
 var bikeUp1 = L.layerGroup(bikeUp);
+var musUp1 = L.layerGroup(musUp);
 
 var basemaps = {
   "Satellite Map" : satellite,
@@ -98,7 +116,8 @@ var basemaps = {
 };
 var overlaymaps = {
   "Bike Stations" : bikeUp1,
-  "Neighborhoods" : neighbourhoods
+  "Neighborhoods" : neighbourhoods,
+  "Museums" : musUp1
 };
 var myMap = L.map("map", {
   center: [29.95, -89.75],
@@ -126,7 +145,7 @@ var myMap = L.map("map", {
 // legend.addTo(myMap);
 L.control.layers(basemaps, overlaymaps, {
   collapsed: false
-}).addTo(myMap)}};
+}).addTo(myMap)}}};
   
 
 
