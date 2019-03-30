@@ -13,7 +13,7 @@ function buildMetadata(sample) {
     Object.entries(data).forEach(([key, value]) => {
       var cell = row.append("tr");
       
-//       cell.text(`${key}: ${value}`);
+      cell.text(`${key}: ${value}`);
       
     // console.log(`Key: ${key} | Value: ${value}`);
     });
@@ -23,22 +23,22 @@ function buildMetadata(sample) {
 function init () {
   var selector = d3.select("#selDataset");
 
-//   // Use the list of sample names to populate the select options
-//   d3.json("/names", function(sampleNames) {
-//     sampleNames.forEach((sample) => {
-//       selector
-//         .append("option")
-//         .text(sample)
+  // Use the list of sample names to populate the select options
+  d3.json("/names", function(sampleNames) {
+    sampleNames.forEach((sample) => {
+      selector
+        .append("option")
+        .text(sample)
         
-//     });
-//   });
-// }
-// function optionChanged(newSample) {
-//   // Fetch new data each time a new sample is selected
-//   // buildCharts(newSample);
-//   buildMetadata(newSample);
-// }
+    });
+  });
+}
+function optionChanged(newSample) {
+  // Fetch new data each time a new sample is selected
+  // buildCharts(newSample);
+  buildMetadata(newSample);
+}
 
-// // Initialize the dashboard
-// init();
+// Initialize the dashboard
+init();
 
