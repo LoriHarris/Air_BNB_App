@@ -1,62 +1,130 @@
-// Create a map object
-var myMap = L.map("map", {
-  center: [30.0300, -90.0456],
-  zoom: 5
-});
+var url = "/geojson";
 
-L.tileLayer("https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}", {
-  attribution: "Map data &copy; <a href=\"https://www.openstreetmap.org/\">OpenStreetMap</a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>, Imagery © <a href=\"https://www.mapbox.com/\">Mapbox</a>",
-  maxZoom: 18,
-  id: "mapbox.streets-basic",
-  accessToken: API_KEY
-}).addTo(myMap);
+var neighborhood_list = [];
+var popUp = [];
+var bikeUp = [];
 
-// Each city object contains the city's name, location and population
-var file = "../../data/detailed_NewOrleans.json"
-var details = {}
-
-d3.json(file, function(data) {
-
-var markers = L.markerClusterGroup();
-
-for (var i = 0; i < data.length; i++) {
-
-  var coordinates = [data[i].latitude, data[i].longitude];
-  
-  markers.addLayer(L.circle(coordinates, {
-    fillOpacity: 0.75,
-    color: "white",
-    fillColor: "purple",
-  }).bindPopup("<h1>" + data[i].name + "</h1> <hr> <h3>Price: " + data[i].price + "</h3>").addTo(myMap));
+function getColor(d) {
+ return d < 1 ? '#ffffcc' :
+        d < 2  ? '#ffeda0' :
+        d < 3  ? '#fed976' :
+        d < 4  ? '#feb24c' :
+        d < 5   ? '#fd8d3c' :
+        d < 6   ? '#fc4e2a' :
+        d < 7   ? '#e31a1c' :
+        d < 8   ? '#bd0026' :
+                   '#800026';
 }
 
-myMap.addLayer(markers)
+
+d3.json("/geojson", function(response) {
+  //  console.log(response.type)
+   createFeatures(response.type);
+
+ });
+
+
+ function createFeatures(neighborhoodData) {
+
+   for (var i = 0; i < neighborhoodData.length; i++) {
+
+     function onEachFeature(feature, layer) {
+        layer.bindPopup("<h4>" + feature.properties.neighbourhood +
+      "</h4>")
+     };
+
+   var neighbourhoods = L.geoJSON(neighborhoodData, {
+     onEachFeature: onEachFeature
+   });
+
+ };
+
+d3.json("/bikeshare", function(bikeresponse) {
+//  console.log(bikeresponse.type);
+ createBikes(bikeresponse.type);
 });
 
-museum_file = "../../data/Museums.geojson"
+ function createBikes(bikeData) {
+   for (var i = 0; i < bikeData.length; i++) {
+     var geometry = bikeData[i].geometry;
+     if (geometry) {
+       bikeUp.push(
+         L.circleMarker(([geometry.coordinates[1], geometry.coordinates[0]]), 
+         {fillColor: "blue",
+         radius: 10}
+         )
+         )};       
+         }
+   
 
-d3.json(museum_file, function(data) {
-  // console.log(data)
-  createFeatures(data.features);
+  d3.json("/museums", function(data) {
+  createMuseums(data.type);
 });
 
-function createFeatures(museumData) {
+function createMuseums(museumData) {
+  // console.log(museumData)
+   for (var i = 0; i < museumData.length; i++) {
 
   function onEachFeature(feature, layer) {
     // console.log(feature.properties)
-    layer.bindPopup("<h3>" + feature.properties.museum +
-      "</h3>")
+    layer.bindPopup("<h4>" + feature.properties.museum +
+      "</h4>")
   }
-  var museum = L.geoJson(museumData, {
-    onEachFeature: onEachFeature
-  }).addTo(myMap);
+  var museums = L.geoJson(museumData, 
+  {onEachFeature: onEachFeature 
+    });
 
 
+d3.json("/listings", function(data) {
+  console.log(data)
+createHosts(data);
+});
+
+// function createHosts (hostData) {
+//   console.log(hostData)
+//   var markers = L.markerClusterGroup();
+
+//   for (var i = 0; i < hostData.length; i++) {
+//     var coordinates = [hostData[i].latitude, hostData[i].longitude];
+  
+//     markers.addLayer(L.marker(coordinates).bindPopup("<h1>" + hostData[i].name + "</h1> <hr> <h3>Price: " + hostData[i].price + "</h3>"));
+//   }
 
 
+// console.log(bikeUp);
+var satellite = L.tileLayer("https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}", {
+ attribution: "Map data &copy; <a href=\"https://www.openstreetmap.org/\">OpenStreetMap</a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>, Imagery © <a href=\"https://www.mapbox.com/\">Mapbox</a>",
+ maxZoom: 18,
+ id: "mapbox.satellite",
+ accessToken: API_KEY
+});
 
+var streetmap = L.tileLayer("https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}", {
+ attribution: "Map data &copy; <a href=\"https://www.openstreetmap.org/\">OpenStreetMap</a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>, Imagery © <a href=\"https://www.mapbox.com/\">Mapbox</a>",
+ maxZoom: 18,
+ id: "mapbox.streets",
+ accessToken: API_KEY
+});
+// var magnitude = L.featureGroup(circles);
+var popUp1 = L.layerGroup(popUp);
+var bikeUp1 = L.layerGroup(bikeUp);
 
+var basemaps = {
+ "Satellite Map" : satellite,
+ "Street Map" : streetmap
+};
+var overlaymaps = {
+ "Bike Stations" : bikeUp1,
+ "Neighborhoods" : neighbourhoods,
+ "Museums": museums
+//  "Airbnb Hosts": markers
+};
+var myMap = L.map("map", {
+ center: [29.95, -89.75],
+ zoom:10,
+ layers: [streetmap, popUp1]
+});
 
-
-
-
+L.control.layers(basemaps, overlaymaps, {
+ collapsed: false
+}).addTo(myMap)}}}};

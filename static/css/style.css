@@ -1,10 +1,41 @@
-body {
-  padding: 0;
-  margin: 0;
+.wrapper {
+  position: relative;
+  min-height: 100%;
+  padding-bottom: 130px;
+  overflow: auto;
 }
 
-#map,
-body,
-html {
-  height: 100%;
+.legend {
+   line-height: 18px;
+   color: black;
+   background-color: white;
 }
+.legend i {
+   width: 22px;
+   height: 18px;
+   float: left;
+   margin-right: 8px;
+   opacity: 0.9;
+}
+#map {
+ position: relative;
+ border: 1px solid black;
+ border-radius: 8px;
+ height: 700px;  /* or as desired */
+ width: 100%;  /* This means "100% of the width of its container", the .col-md-8 */
+}
+/* Mapbox IDs
+Classic
+Light
+Dark
+Satellite
+Satellite Streets
+Wheatpaste
+Streets Classic
+Comic
+Outdoors
+Run, Bike, Hike
+Pencil
+Pirates
+Emerald
+High Contrast */
