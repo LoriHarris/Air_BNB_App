@@ -1,8 +1,5 @@
 function buildMetadata(sample) {
-  n_name();
-    function n_name() {
-      name = sample;
-    };
+ 
   d3.json(`/listings/${sample}`, function(data) {
     var data = [data];
     // console.log(data);
@@ -13,9 +10,9 @@ function buildMetadata(sample) {
     Object.entries(data).forEach(([key, value]) => {
       var cell = row.append("tr");
       
-//       cell.text(`${key}: ${value}`);
+      cell.text(`${key}: ${value}`);
       
-    // console.log(`Key: ${key} | Value: ${value}`);
+    console.log(`Key: ${key} | Value: ${value}`);
     });
   });
 });

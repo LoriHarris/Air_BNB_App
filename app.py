@@ -188,19 +188,19 @@ def hoodData(name):
     
     collection = mongo.db.hood_profiles_json
     data = {}
-    myquery = {"Name":{"$eq":[ (name) ]}} 
+    myquery =  ({'_id':ObjectId('5c9facc92da1ac122caff6af')}).keys() 
     myquery1={}
     print('query', collection.find(myquery))
-    for json in collection.find(myquery1):
-        data = {}
-        data.update({'Name': json['Name'],
-        'Rank#' : json['Rank#'],
-        'Walk Score' : json['Walk Score'],
-        'Transit Score': json['Transit Score'],
-        'Bike Score' :json['Bike Score'],
-        'Population' : json['Population']      
-        })
-    print(data)
+    # for json in collection.find(myquery):
+    #     data = {}
+    #     data.update()
+        # data.update({'Rank#' : json['Rank#'],
+        # 'Walk Score' : json['Walk Score']
+        # 'Transit Score': json['Transit Score'],
+        # 'Bike Score' :json['Bike Score'],
+        # 'Population' : json['Population']      
+        # })
+    print()
     return jsonify(data)
    
 
