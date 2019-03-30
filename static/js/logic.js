@@ -1,5 +1,6 @@
 var url = "/geojson";
 
+
 var neighborhood_list = [];
 var popUp = [];
 var bikeUp = [];

@@ -92,6 +92,25 @@ def reviews_json():
     
     return jsonify(data)
 
+
+@app.route("/hood_json")
+def hood_json():
+    collection = mongo.db.hood_profiles_json
+    data = {}
+    myquery = {}   
+
+    for json in collection.find(myquery):
+        data.update({'Name': json['Name'],
+        'Rank#' : json['Rank#'],
+        'Walk Score' : json['Walk Score'],
+        'Transit Score': json['Transit Score'],
+        'Bike Score' :json['Bike Score'],
+        'Population' : json['Population']      
+        })
+    
+    return jsonify(data)
+
+
 @app.route("/listings/<name>")
 def listings(name):
 
