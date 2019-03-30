@@ -128,7 +128,34 @@ def hood_json():
     
     return jsonify(data)
 
-
+@app.route("/brewery_json")
+def brewery_json():
+    collection = mongo.db.brewery_json
+    listings = []
+    myquery = {}   
+    # myquery = {"price":{ "$eq": "300" }}
+    print('query', collection.find(myquery))
+    for json in collection.find(myquery):
+        data = {}
+        data.update({'Name': json['name'],
+        'Type' : json['brewery_type'],
+        'Street' : json['street'],
+        'City': json['city'],
+        'State' :json['state'],
+        'Postal_Code' : json['postal_code'],
+        'Country' : json['country'],
+        'Longitude' : json['longitude'],
+        'Latitude' : json['latitude'],
+        'Phone' :json['phone'],
+        'Updated_at': json['updated_at'],
+        'Website' : json['website_url']        
+        })
+    
+        listings.append(data)
+        
+        print('data', data)
+ 
+    return jsonify(listings)
 @app.route("/listings/<name>")
 def listings(name):
 
@@ -155,6 +182,27 @@ def listings(name):
         })
 
     return jsonify(data1)
+@app.route("/hood_json/<name>")
+def hoodData(name):
+
+    
+    collection = mongo.db.hood_profiles_json
+    data = {}
+    myquery = {"Name":{"$eq":[ (name) ]}} 
+    myquery1={}
+    print('query', collection.find(myquery))
+    for json in collection.find(myquery1):
+        data = {}
+        data.update({'Name': json['Name'],
+        'Rank#' : json['Rank#'],
+        'Walk Score' : json['Walk Score'],
+        'Transit Score': json['Transit Score'],
+        'Bike Score' :json['Bike Score'],
+        'Population' : json['Population']      
+        })
+    print(data)
+    return jsonify(data)
+   
 
 
 
