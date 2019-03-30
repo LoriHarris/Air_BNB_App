@@ -52,6 +52,8 @@ def bikeshare():
     
     return jsonify(data)
 
+
+
 @app.route("/museums")
 def museums():
     collection = mongo.db.museums_json
@@ -119,6 +121,23 @@ def listings(name):
     return jsonify(data1)
 
 
+@app.route("/hoodprofiles")
+def hoodprofiles():
+    
+    collection = mongo.db['hood_profiles_json']
+    data = {}
+    myquery = {}   
+
+    for json in collection.find(myquery):
+        data.update({'Rank': json['Rank#'],
+        'Name' : json['Name'],
+        'Walk Score' : json['Walk Score'],
+        'Transit Score': json['Transit Score'],
+        'Bike Score': json['Bike Score'],
+        'Population':json['Population']
+        })
+    
+    return jsonify(data)
 
 
 if __name__== '__main__':
