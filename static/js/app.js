@@ -1,11 +1,12 @@
 function buildMetadata(sample) {
  
-  d3.json(`/listings/${sample}`, function(data) {
+  d3.json(`/hood_json/${sample}`, function(data) {
     var data = [data];
     // console.log(data);
   var meta_chart = d3.select("#sample-metadata");
   meta_chart.html("");
   data.forEach((data) => {
+    var row1 = meta_chart.append("table-responsive");
     var row = meta_chart.append("tbody");
     Object.entries(data).forEach(([key, value]) => {
       var cell = row.append("tr");
