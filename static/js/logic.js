@@ -1,3 +1,24 @@
+var granimInstance = new Granim({
+    element: '#canvas-image-blending',
+    direction: 'top-bottom',
+    isPausedWhenNotInView: true,
+    image : {
+        source: "../../templates/images/Header_image2.png",
+        blendingMode: 'multiply'
+    },
+    states : {
+        "default-state": {
+            gradients: [
+                ['#29323c', '#485563'],
+                ['#FF6B6B', '#556270'],
+                ['#80d3fe', '#7ea0c4'],
+                ['#f0ab51', '#eceba3']
+            ],
+            transitionSpeed: 7000
+        }
+    }
+});
+
 var url = "/geojson";
 
 var neighborhood_list = [];
@@ -59,7 +80,7 @@ d3.json("/bikeshare", function(bikeresponse) {
     };
    
 d3.json("/listings", function(data) {
-  console.log(data)
+  // console.log(data)
 createHosts(data);
 });
 
@@ -72,7 +93,7 @@ for (var i = 0; i < hostData.length; i++) {
     // console.log(coordinates) 
 
     markers.addLayer(L.marker(coordinates).bindPopup("<h1>" + hostData[i].name + "</h1> <hr> <h3>Price: " + hostData[i].price + "</h3>"));
-    console.log(hosts)
+    // console.log(hosts)
   }
 
   d3.json("/museums", function(data) {
