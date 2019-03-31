@@ -33,6 +33,13 @@ var musIcon =
         markerColor: "green",
         shape: "star"
         });
+var beerIcon = 
+      L.ExtraMarkers.icon({
+        icon: "ion-ios-book",
+        iconColor: "white",
+        markerColor: "purple",
+        shape: "star"
+        });
 d3.json("/geojson", function(response) {
     console.log(response.type)
     createFeatures(response.type);
@@ -73,6 +80,40 @@ d3.json("/bikeshare", function(bikeresponse) {
         .on('click'))  
         };
     };
+    d3.json("/listings", function(data) {
+      // console.log(data)
+      createHosts(data);
+      });
+      
+      function createHosts (hostData) {
+        
+      var markers = L.markerClusterGroup();
+      
+      for (var i = 0; i < hostData.length; i++) {
+        var coordinates = [hostData[i].latitude, hostData[i].longitude];
+        // console.log(coordinates) 
+      
+        markers.addLayer(L.marker((coordinates), {
+          icon:beerIcon})
+        .bindPopup("<h1>" + hostData[i].name + "</h1> <hr> <h3>Price: " + hostData[i].price + "</h3>"));
+        // console.log(hosts)
+      }
+    d3.json("/brewery_json", function(data) {
+      // console.log(data)
+      createBrews(data);
+      });
+      
+      function createBrews (brewData) {
+        
+      var brews = L.markerClusterGroup();
+      
+      for (var i = 0; i < brewData.length; i++) {
+        var coordinates1 = [brewData[i].Latitude, brewData[i].Longitude];
+        console.log(coordinates1) 
+      
+        brews.addLayer(L.marker(coordinates1).bindPopup("<h1>" + brewData[i].Name + "</h1> <hr> <h3>Phone: " + brewData[i].Phone + "</h1><hr><h3>Location: "+ brewData[i].Street + "</h3>"));
+        // console.log(hosts)
+      }
     d3.json("/museums", function(mus_response) {
       console.log(mus_response.type);
       createBikes(mus_response.type);
@@ -118,7 +159,9 @@ var basemaps = {
 var overlaymaps = {
   "Bike Stations" : bikeUp1,
   "Neighborhoods" : neighbourhoods,
-  "Museums" : musUp1
+  "Museums" : musUp1,
+  "Air BNB Hosts" : markers,
+  "Breweries" : brews
 };
 var myMap = L.map("map", {
   center: [29.95, -89.75],
@@ -146,7 +189,7 @@ var myMap = L.map("map", {
 // legend.addTo(myMap);
 L.control.layers(basemaps, overlaymaps, {
   collapsed: false
-}).addTo(myMap)}}};
+}).addTo(myMap)}}}}};
   
 
 
