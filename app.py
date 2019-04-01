@@ -75,7 +75,7 @@ def full_listings():
         data = {}
         data.update({'listing_url': json['listing_url'],
         'name': json['name'],
-        'host_name' : json['neighbourhood_cleansed'],
+        'area' : json['neighbourhood_cleansed'],
         'latitude' : json['latitude'],
         'longitude' : json['longitude'],
         'property_type' : json['property_type'],
@@ -153,35 +153,42 @@ def brewery_json():
     
         listings.append(data)
         
-        print('data', data)
+        # print('data', data)
  
     return jsonify(listings)
 @app.route("/listings/<name>")
 def listings(name):
 
   
-    collection = mongo.db["listings"]
+    collection = mongo.db.listings_json
+    listings = []
 
-    data1 = {}
-    myquery = {"neighbourhood":{ "$eq": (name) }}
-    for listing in collection.find(myquery):
-        data1.update({'id':listing['id'],
-        'host_id':listing['host_id'],
-        'Host_Name': listing['host_name'],
-        'Description':listing['name'],
-        'Neighborhood':listing['neighbourhood'],
-        'Latitude':listing['latitude'],
-        'Longitude': listing['longitude'],
-        'Room_Type': listing['room_type'],
-        'Price':listing['price'],
-        'Minimum_Stay':listing ['minimum_nights'],
-        'Number_Reviews':listing['number_of_reviews'],
-        'Most_Recent_Review':listing['last_review'],
-        'Reviews_per_month':listing['reviews_per_month'],
-        'Availability':listing['availability_365']
+    myquery = {"neighbourhood_cleansed":{ "$eq": (name) }}
+    
+    # myquery = {"price":{ "$eq": "300" }}
+    print('query', collection.find(myquery))
+    for json in collection.find(myquery):
+        data = {}
+        data.update({'listing_url': json['listing_url'],
+        'name': json['name'],
+        'area' : json['neighbourhood_cleansed'],
+        'latitude' : json['latitude'],
+        'longitude' : json['longitude'],
+        'property_type' : json['property_type'],
+        'room type' : json['room_type'],
+        'accommodates' :json['accommodates'],
+        'bathrooms' : json['bathrooms'],
+        'bedrooms' : json['bedrooms'],
+        'beds' : json['beds'],
+        'price' : json['price'],
+        'minimum_nights' : json['minimum_nights']
         })
+        listings.append(data)
+    
+    print('data', data)
+ 
+    return jsonify(listings)
 
-    return jsonify(data1)
 @app.route("/hood_json/<area>")
 def hoodData(area):
 
@@ -190,8 +197,6 @@ def hoodData(area):
     data = {}
     myquery = {"Name":{ "$eq": (area) }}
  
-    myquery1={}
-    print('query', collection.find(myquery))
     for json in collection.find(myquery):
         # data = {}
         data.update({

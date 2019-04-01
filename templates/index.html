@@ -30,8 +30,11 @@
 <body>
 
   <div class = "jumbotron">
-    <H1>Air BNB Data</H1>
-    <!-- <p>Todays Weather Tweet: {{ data.features }}</p> -->
+    <div class = "row">
+      <div class = "col-md-4">
+      <H1>Air BNB Data</H1>
+   </div>
+   <div class = "col-md-4">
    <div class="well">
           <h3><h4curly>SELECT Neighborhood:</h3></h4curly>
             <select id="selDataset" onchange="optionChanged(this.value)">
@@ -39,6 +42,16 @@
             </select> 
             </div>
           </div>
+    <div class="col-md-4">
+    <div class="well">
+      <h3><h4curly>SELECT Listing:</h3></h4curly>
+        <select id="selListing">
+          <option></option>
+        </select> 
+        </div>
+          </div>
+        </div>
+      </div>
   <!-- The div that holds our map -->
   <div class="row">
      <!-- <div class="container"> -->
@@ -48,11 +61,14 @@
       </div>
    
         <div class="col-md-4">
+            <!-- <iframe name="theFrame"></iframe> -->
+                <iframe class="embed-responsive-item" name="theFrame"></iframe>
+              
           <div class="panel panel-primary">
             <div class="panel-heading">
               <h3 class="panel-title">Neighborhood Stats</h3>
             </div>
-            <div id="sample-metadata" class="panel-body"></div>
+            <div id="sample-metadata" class="table table-striped"></div>
           </div>
        
       </div>
