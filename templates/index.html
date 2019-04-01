@@ -45,7 +45,7 @@
     <div class="col-md-4">
     <div class="well">
       <h3><h4curly>SELECT Listing:</h3></h4curly>
-        <select id="selListing">
+        <select id="selListing" onchange="optionChanged1(this.value)">
           <option></option>
         </select> 
         </div>
@@ -60,9 +60,8 @@
         <div id="map"></div>
       </div>
    
-        <div class="col-md-4">
-            <!-- <iframe name="theFrame"></iframe> -->
-                <iframe class="embed-responsive-item" name="theFrame"></iframe>
+        <div class="col-md-2">
+                <!-- <iframe class="embed-responsive-item" name="theFrame"></iframe> -->
               
           <div class="panel panel-primary">
             <div class="panel-heading">
@@ -72,6 +71,17 @@
           </div>
        
       </div>
+      <div class="col-md-2">
+        <!-- <iframe class="embed-responsive-item" name="theFrame"></iframe> -->
+      
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <h3 class="panel-title">Listing Stats</h3>
+    </div>
+    <div id="sample-listingdata" class="table table-striped"></div>
+  </div>
+
+</div>
 </div>
       <script type="text/javascript" src="static/js/leaflet.extra-markers.min.js"></script>
       <script type="text/javascript" src="static/js/config.js"></script>

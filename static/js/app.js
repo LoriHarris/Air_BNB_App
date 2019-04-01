@@ -20,7 +20,29 @@ function buildMetadata(sample) {
   });
 });
 }
-function init () {
+
+function buildListingdata(sample) {
+ 
+  d3.json(`/url/${sample}`, function(data) {
+    var data = [data];
+    // console.log(data);
+  var meta_chart = d3.select("#sample-listingdata");
+  meta_chart.html("");
+  data.forEach((data) => {
+    var row1 = meta_chart.append("table-responsive");
+    var row = meta_chart.append("tbody");
+    Object.entries(data).forEach(([key, value]) => {
+      var cell = row.append("tr");
+      
+      cell.text(`${key}: ${value}`);
+      
+    console.log(`Key: ${key} | Value: ${value}`);
+    });
+  });
+});
+}
+
+// function init () {
   var selector = d3.select("#selDataset");
 
   // Use the list of sample names to populate the select options
@@ -32,31 +54,39 @@ function init () {
         
     });
   });
-}
+
 
 names =[];
 var selector1 = d3.select("#selListing");
 function optionChanged(newSample) {
   d3.json(`listings/${newSample}`, function(listingData) {
     createData(listingData);
+    buildMetadata(newSample);
   });
   function createData (listings) {
     for (var i = 0; i < listings.length; i++) {
-      names.push(listings[i].name);
-      console.log(listings[i].listing_url);
+      
       selector1
       .append("option")
       .text(listings[i].name)
   
         }
   }
-
-  
-  // Fetch new data each time a new sample is selected
-  // buildCharts(newSample);
-  buildMetadata(newSample);
 }
+  function optionChanged1(newSample1) {
+    d3.json(`url/${newSample1}`, function(listingData) {
+      buildListingdata(newSample1)
+      createData(listingData);
+    });
+    function createData (listings) {
+      for (var i = 0; i < listings.length; i++) {
+        names.push(listings[i].name);
+        console.log(listings[i].listing_url);
+        selector1
+        .append("option")
+        .text(listings[i].name)
+    
+          }
+  }
 
-// Initialize the dashboard
-init();
 
