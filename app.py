@@ -208,7 +208,34 @@ def hoodData(area):
         'Population' : json['Population']      
         })
     return jsonify(data)
-   
+@app.route("/url/<url>")
+def url_listings(url):
+    
+    collection = mongo.db.listings_json
+    urls = []
+
+    myquery = {"name":{ "$eq": (url) }}
+    
+    # myquery = {"price":{ "$eq": "300" }}
+    print('query', collection.find(myquery))
+    for json in collection.find(myquery):
+        data = {}
+        data.update({'listing_url': json['listing_url'],
+        'name': json['name'],
+        'area' : json['neighbourhood_cleansed'],
+        'latitude' : json['latitude'],
+        'longitude' : json['longitude'],
+        'property_type' : json['property_type'],
+        'room type' : json['room_type'],
+        'accommodates' :json['accommodates'],
+        'bathrooms' : json['bathrooms'],
+        'bedrooms' : json['bedrooms'],
+        'beds' : json['beds'],
+        'price' : json['price'],
+        'minimum_nights' : json['minimum_nights']
+        })
+  
+    return jsonify(data)
 
 
 

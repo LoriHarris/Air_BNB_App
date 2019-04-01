@@ -109,7 +109,7 @@ d3.json("/bikeshare", function(bikeresponse) {
       
       for (var i = 0; i < brewData.length; i++) {
         var coordinates1 = [brewData[i].Latitude, brewData[i].Longitude];
-        console.log(coordinates1) 
+        // console.log(coordinates1) 
       
         brews.addLayer(L.marker(coordinates1).bindPopup("<h1>" + brewData[i].Name + "</h1> <hr> <h3>Phone: " + brewData[i].Phone + "</h1><hr><h3>Location: "+ brewData[i].Street + "</h3>"));
         // console.log(hosts)
