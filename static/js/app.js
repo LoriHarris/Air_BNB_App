@@ -1,3 +1,5 @@
+
+
 function buildMetadata(sample) {
  
   d3.json(`/hood_json/${sample}`, function(data) {
@@ -31,7 +33,25 @@ function init () {
     });
   });
 }
+
+names =[];
+var selector1 = d3.select("#selListing");
 function optionChanged(newSample) {
+  d3.json(`listings/${newSample}`, function(listingData) {
+    createData(listingData);
+  });
+  function createData (listings) {
+    for (var i = 0; i < listings.length; i++) {
+      names.push(listings[i].name);
+      console.log(listings[i].listing_url);
+      selector1
+      .append("option")
+      .text(listings[i].name)
+  
+        }
+  }
+
+  
   // Fetch new data each time a new sample is selected
   // buildCharts(newSample);
   buildMetadata(newSample);
