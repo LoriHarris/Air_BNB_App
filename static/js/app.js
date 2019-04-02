@@ -71,6 +71,13 @@ function optionChanged(newSample) {
       .text(listings[i].name)
   
         }
+    for (var i = 0; i <listings.length; i++) {
+      selector
+      .on("change", function(d) {
+        selector1
+        .text("")
+      })
+    }
   }
 }
   function optionChanged1(newSample1) {
@@ -82,11 +89,8 @@ function optionChanged(newSample) {
       for (var i = 0; i < listings.length; i++) {
         names.push(listings[i].name);
         console.log(listings[i].listing_url);
-        selector1
-        .append("option")
-        .text(listings[i].name)
-    
+      
           }
   }
 
-
+  }
