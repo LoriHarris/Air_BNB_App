@@ -116,7 +116,7 @@ d3.json("/bikeshare", function(bikeresponse) {
       
         markers.addLayer(L.marker((coordinates), {
           icon:beerIcon})
-        .bindPopup("<h1>" + hostData[i].name + "</h1> <hr> <h3>Price: " + hostData[i].price + "</h3>"));
+        .bindPopup("<h1>" + hostData[i].name + "</h1> <hr> <h3>Price: " + hostData[i].price + "</h3><h3><a href>URL:  "+hostData[i].listing_url+"</a></h3>"));
         // console.log(hosts)
       }
     d3.json("/brewery_json", function(data) {
