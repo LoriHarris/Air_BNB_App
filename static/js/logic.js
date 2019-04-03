@@ -26,17 +26,6 @@ var neighborhood_list = [];
 var popUp = [];
 var bikeUp = [];
 var musUp = [];
-function getColor(d) {
-  return d < 1 ? '#ffffcc' :
-         d < 2  ? '#ffeda0' :
-         d < 3  ? '#fed976' :
-         d < 4  ? '#feb24c' :
-         d < 5   ? '#fd8d3c' :
-         d < 6   ? '#fc4e2a' :
-         d < 7   ? '#e31a1c' :
-         d < 8   ? '#bd0026' :
-                    '#800026';
-} 
 
 
 var bikeIcon = 
@@ -77,7 +66,7 @@ d3.json("/geojson", function(response) {
 
     var neighbourhoods = L.geoJSON(neighborhoodData, {
       onEachFeature: function (feature, layer) {
-        layer.bindPopup('<h1>'+feature.properties.neighbourhood+'</h1>');
+        layer.bindPopup('<h8>'+feature.properties.neighbourhood+'</h8>');
       }
     }) 
   }; 
@@ -97,7 +86,7 @@ d3.json("/bikeshare", function(bikeresponse) {
             icon:bikeIcon
         }
         )
-        .bindPopup("<h3>Magnitude: " + properties.sign_type + "<h3><h3>Location: " + properties.station_number + "<h3>")
+        .bindPopup("<h8>Bike Type: " + properties.sign_type + "</h8><h8>Location: " + properties.station_number + "</h8>")
         .on('click'))  
         };
     };
@@ -116,7 +105,7 @@ d3.json("/bikeshare", function(bikeresponse) {
       
         markers.addLayer(L.marker((coordinates), {
           icon:beerIcon})
-        .bindPopup("<h1>" + hostData[i].name + "</h1> <hr> <h3>Price: " + hostData[i].price + "</h3><h3><a href>URL:  "+hostData[i].listing_url+"</a></h3>"));
+        .bindPopup("<h8>" + hostData[i].name + "</h8> <hr> <h8>Price: $" + hostData[i].price + "</h8>"));
         // console.log(hosts)
       }
     d3.json("/brewery_json", function(data) {
@@ -132,7 +121,7 @@ d3.json("/bikeshare", function(bikeresponse) {
         var coordinates1 = [brewData[i].Latitude, brewData[i].Longitude];
         // console.log(coordinates1) 
       
-        brews.addLayer(L.marker(coordinates1).bindPopup("<h1>" + brewData[i].Name + "</h1> <hr> <h3>Phone: " + brewData[i].Phone + "</h1><hr><h3>Location: "+ brewData[i].Street + "</h3>"));
+        brews.addLayer(L.marker(coordinates1).bindPopup("<h8>" + brewData[i].Name + "</h8> <hr> <h8>Phone: " + brewData[i].Phone + "</h8><hr><h8>Location: "+ brewData[i].Street + "</h8>"));
         // console.log(hosts)
       }
     d3.json("/museums", function(mus_response) {
@@ -150,7 +139,7 @@ d3.json("/bikeshare", function(bikeresponse) {
                 icon:musIcon
             }
             )
-            .bindPopup("<h3>Magnitude: " + properties.museum + "<h3><h3>Location: " + properties.address + "<h3>")
+            .bindPopup("<h8>Bke Type: " + properties.museum + "</h8><h8>Location: " + properties.address + "<h8>")
             .on('click'))  
             };
         };
@@ -178,16 +167,17 @@ var basemaps = {
   "Street Map" : streetmap
 };
 var overlaymaps = {
+ "Airbnb Hosts" : markers,
   "Bike Stations" : bikeUp1,
-  "Neighborhoods" : neighbourhoods,
+  "Breweries" : brews,
   "Museums" : musUp1,
-  "Air BNB Hosts" : markers,
-  "Breweries" : brews
+  "Neighborhoods" : neighbourhoods
+ 
 };
 var myMap = L.map("map", {
-  center: [29.95, -89.75],
+  center: [30.02, -89.93],
   zoom:10,
-  layers: [satellite, popUp1]
+  layers: [streetmap, markers]
 });
 // var legend = L.control({position: 'bottomright'});
 
@@ -212,278 +202,3 @@ L.control.layers(basemaps, overlaymaps, {
   collapsed: false
 }).addTo(myMap)}}}}};
   
-
-
-// function buildMetadata(sample) {
-//     n_name();
-//       function n_name() {
-//         name = sample;
-//       };
-//     d3.json(`/listings/${sample}`, function(data) {
-//       var data = [data];
-//       // console.log(data);
-//     var meta_chart = d3.select("#sample-metadata");
-//     meta_chart.html("");
-//     data.forEach((data) => {
-//       var row = meta_chart.append("tbody");
-//       Object.entries(data).forEach(([key, value]) => {
-//         var cell = row.append("tr");
-        
-//         cell.text(`${key}: ${value}`);
-        
-//       // console.log(`Key: ${key} | Value: ${value}`);
-//       });
-//     });
-//   });
-//   }
-//   console.log(name);
-//   function init () {
-//     var selector = d3.select("#selDataset");
-  
-//     // Use the list of sample names to populate the select options
-//     d3.json("/names", function(sampleNames) {
-//       sampleNames.forEach((sample) => {
-//         selector
-//           .append("option")
-//           .text(sample)
-          
-//       });
-//     });
-//   }
-//   function optionChanged(newSample) {
-//     // Fetch new data each time a new sample is selected
-//     buildNeighborhoodData(newSample);
-//     buildMetadata(newSample);
-//   }
-  
-//   // Initialize the dashboard
-//   init();
-  
-  
-
-// var granimInstance = new Granim({
-//   element: '#canvas-image-blending',
-//   direction: 'top-bottom',
-//   isPausedWhenNotInView: true,
-//   image : {
-//       source: "../../templates/images/Header_image2.png",
-//       blendingMode: 'multiply'
-//   },
-//   states : {
-//       "default-state": {
-//           gradients: [
-//               ['#29323c', '#485563'],
-//               ['#FF6B6B', '#556270'],
-//               ['#80d3fe', '#7ea0c4'],
-//               ['#f0ab51', '#eceba3']
-//           ],
-//           transitionSpeed: 7000
-//       }
-//   }
-// });
-
-// var url = "/geojson";
-
-
-// var neighborhood_list = [];
-// var popUp = [];
-// var bikeUp = [];
-// var musUp = [];
-// function getColor(d) {
-//   return d < 1 ? '#ffffcc' :
-//          d < 2  ? '#ffeda0' :
-//          d < 3  ? '#fed976' :
-//          d < 4  ? '#feb24c' :
-//          d < 5   ? '#fd8d3c' :
-//          d < 6   ? '#fc4e2a' :
-//          d < 7   ? '#e31a1c' :
-//          d < 8   ? '#bd0026' :
-//                     '#800026';
-// } 
-
-
-// var bikeIcon = 
-//        L.ExtraMarkers.icon({
-//         icon: "ion-android-bicycle",
-//         iconColor: "white",
-//         markerColor: "orange",
-//         shape: "circle"
-//         });
-
-// var musIcon = 
-//       L.ExtraMarkers.icon({
-//         icon: "ion-ios-book",
-//         iconColor: "white",
-//         markerColor: "green",
-//         shape: "star"
-//         });
-// var beerIcon = 
-//       L.ExtraMarkers.icon({
-//         icon: "ion-ios-book",
-//         iconColor: "white",
-//         markerColor: "purple",
-//         shape: "star"
-//         });
-// d3.json("/geojson", function(response) {
-//     console.log(response.type)
-//     createFeatures(response.type);
-    
-//   });
-
-  
-//   function createFeatures(neighborhoodData) {
-    
-//     for (var i = 0; i < neighborhoodData.length; i++) {
-      
-//       function onEachFeature(feature, layer) {
-//       };
-
-//     var neighbourhoods = L.geoJSON(neighborhoodData, {
-//       onEachFeature: function (feature, layer) {
-//         layer.bindPopup('<h1>'+feature.properties.neighbourhood+'</h1>');
-//       }
-//     }) 
-//   }; 
-  
-// d3.json("/bikeshare", function(bikeresponse) {
-//   console.log(bikeresponse.type);
-//   createBikes(bikeresponse.type);
-// });
-//   function createBikes(bikeData) {
-//     var bike_count = bikeData.length;
-//     for (var i = 0; i < bikeData.length; i++) {
-//       var geometry = bikeData[i].geometry;
-//       var properties = bikeData[i].properties;
-//       if (geometry) {
-//         bikeUp.push(
-//           L.marker(([geometry.coordinates[1], geometry.coordinates[0]]), {
-//             icon:bikeIcon
-//         }
-//         )
-//         .bindPopup("<h3>Magnitude: " + properties.sign_type + "<h3><h3>Location: " + properties.station_number + "<h3>")
-//         .on('click'))  
-//         };
-//     };
-//     d3.json("/listings", function(data) {
-//       // console.log(data)
-//       createHosts(data);
-//       });
-      
-//       function createHosts (hostData) {
-        
-//       var markers = L.markerClusterGroup();
-//       var list_count = hostData.length;
-//       for (var i = 0; i < hostData.length; i++) {
-//         var coordinates = [hostData[i].latitude, hostData[i].longitude];
-//         // console.log(coordinates) 
-      
-//         markers.addLayer(L.marker((coordinates), {
-//           icon:beerIcon})
-//         .bindPopup("<h1>" + hostData[i].name + "</h1> <hr> <h3>Price: " + hostData[i].price + "</h3>"));
-//         // console.log(hosts)
-//       }
-//     d3.json("/brewery_json", function(data) {
-//       // console.log(data)
-//       createBrews(data);
-//       });
-      
-//       function createBrews (brewData) {
-//       var brew_count = brewData.length;  
-//       var brews = L.markerClusterGroup();
-      
-//       for (var i = 0; i < brewData.length; i++) {
-//         var coordinates1 = [brewData[i].Latitude, brewData[i].Longitude];
-//         // console.log(coordinates1) 
-      
-//         brews.addLayer(L.marker(coordinates1).bindPopup("<h1>" + brewData[i].Name + "</h1> <hr> <h3>Phone: " + brewData[i].Phone + "</h1><hr><h3>Location: "+ brewData[i].Street + "</h3>"));
-//         // console.log(hosts)
-//       }
-//     d3.json("/museums", function(mus_response) {
-//       console.log(mus_response.type);
-//       createBikes(mus_response.type);
-//     });
-//       function createBikes(musData) {
-//         var mus_count = musData.length;
-//         for (var i = 0; i < musData.length; i++) {
-//           var geometry = musData[i].geometry;
-//           var properties = musData[i].properties;
-//           if (geometry) {
-//             musUp.push(
-//               L.marker(([geometry.coordinates[1], geometry.coordinates[0]]), {
-//                 icon:musIcon
-//             }
-//             )
-//             .bindPopup("<h3>Magnitude: " + properties.museum + "<h3><h3>Location: " + properties.address + "<h3>")
-//             .on('click'))  
-//             };
-//         };
-// console.log(bikeUp);
-// var satellite = L.tileLayer("https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}", {
-//   attribution: "Map data &copy; <a href=\"https://www.openstreetmap.org/\">OpenStreetMap</a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>, Imagery © <a href=\"https://www.mapbox.com/\">Mapbox</a>",
-//   maxZoom: 18,
-//   id: "mapbox.satellite",
-//   accessToken: API_KEY
-// });
-
-// var streetmap = L.tileLayer("https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}", {
-//   attribution: "Map data &copy; <a href=\"https://www.openstreetmap.org/\">OpenStreetMap</a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>, Imagery © <a href=\"https://www.mapbox.com/\">Mapbox</a>",
-//   maxZoom: 18,
-//   id: "mapbox.streets",
-//   accessToken: API_KEY
-// });
-// // var magnitude = L.featureGroup(circles);
-// var popUp1 = L.layerGroup(popUp);
-// var bikeUp1 = L.layerGroup(bikeUp);
-// var musUp1 = L.layerGroup(musUp);
-
-// var basemaps = {
-//   "Satellite Map" : satellite,
-//   "Street Map" : streetmap
-// };
-// var overlaymaps = {
-//   "Bike Stations" : bikeUp1,
-//   "Neighborhoods" : neighbourhoods,
-//   "Museums" : musUp1,
-//   "Air BNB Hosts" : markers,
-//   "Breweries" : brews
-// };
-// var myMap = L.map("map", {
-//   center: [29.95, -89.75],
-//   zoom:10,
-//   layers: [satellite, popUp1]
-// });
-// // var legend = L.control({position: 'bottomright'});
-
-// // legend.onAdd = function (map) {
-
-// //     var div = L.DomUtil.create('div', 'info legend'),
-// //         magRange = [0,1,2,3,4,5,6,7,8],
-// //         labels = [];
-
-// //     // loop through our density intervals and generate a label with a colored square for each interval
-// //     for (var i = 0; i < magRange.length; i++) {
-// //         div.innerHTML +=
-// //             '<i style="background:' + getColor(magRange[i] + 1) + '"></i> ' +
-// //             magRange[i] + (magRange[i + 1] ? '&ndash;' + magRange[i + 1] + '<br>' : '+');
-// //     }
-
-// //     return div;
-// // };
-// console.log(mus_count)
-
-// var data = [{
-//   x:["Museums", "Breweries", "Bike Stations", "Listings"],
-//   y:[mus_count, brew_count, bike_count, list_count],
-//   type: 'bar'
-// }];
-// Plotly.newPlot('myPie', data);
-
-
-// // legend.addTo(myMap);
-// L.control.layers(basemaps, overlaymaps, {
-//   collapsed: false
-// }).addTo(myMap)}}}}};
-  
-
-
-

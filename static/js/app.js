@@ -5,42 +5,39 @@ function buildMetadata(sample) {
   d3.json(`/hood_json/${sample}`, function(data) {
     var data = [data];
     // console.log(data);
-  var meta_chart = d3.select("#sample-metadata");
+  var meta_chart = d3.select("tbody");
   meta_chart.html("");
   data.forEach((data) => {
-    var row1 = meta_chart.append("table-responsive");
-    var row = meta_chart.append("tbody");
+    var row1 = meta_chart.append("tr");
     Object.entries(data).forEach(([key, value]) => {
-      var cell = row.append("tr");
+      var cell = row1.append("td");
       
-      cell.text(`${key}: ${value}`);
+      cell.text(value);
       
-    console.log(`Key: ${key} | Value: ${value}`);
     });
   });
 });
 }
-
-function buildListingdata(sample) {
+// function buildListingdata(sample) {
  
-  d3.json(`/url/${sample}`, function(data) {
-    var data = [data];
-    // console.log(data);
-  var meta_chart = d3.select("#sample-listingdata");
-  meta_chart.html("");
-  data.forEach((data) => {
-    var row1 = meta_chart.append("table-responsive");
-    var row = meta_chart.append("tbody");
-    Object.entries(data).forEach(([key, value]) => {
-      var cell = row.append("tr");
+//   d3.json(`/url/${sample}`, function(data) {
+//     var data = [data];
+//     // console.log(data);
+//   var meta_chart = d3.select("#sample-listingdata");
+//   meta_chart.html("");
+//   data.forEach((data) => {
+//     var row1 = meta_chart.append("table-responsive");
+//     var row = meta_chart.append("tbody");
+//     Object.entries(data).forEach(([key, value]) => {
+//       var cell = row.append("tr");
       
-      cell.text(`${key}: ${value}`);
+//       cell.text(`${key}: ${value}`);
       
-    console.log(`Key: ${key} | Value: ${value}`);
-    });
-  });
-});
-}
+//     console.log(`Key: ${key} | Value: ${value}`);
+//     });
+//   });
+// });
+// }
 
 // function init () {
   var selector = d3.select("#selDataset");
