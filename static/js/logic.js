@@ -51,7 +51,7 @@ var beerIcon =
         shape: "star"
         });
 d3.json("/geojson", function(response) {
-    console.log(response.type)
+    // console.log(response.type)
     createFeatures(response.type);
     
   });
@@ -72,7 +72,7 @@ d3.json("/geojson", function(response) {
   }; 
   
 d3.json("/bikeshare", function(bikeresponse) {
-  console.log(bikeresponse.type);
+  // console.log(bikeresponse.type);
   createBikes(bikeresponse.type);
 });
   function createBikes(bikeData) {
@@ -125,7 +125,7 @@ d3.json("/bikeshare", function(bikeresponse) {
         // console.log(hosts)
       }
     d3.json("/museums", function(mus_response) {
-      console.log(mus_response.type);
+      // console.log(mus_response.type);
       createBikes(mus_response.type);
     });
       function createBikes(musData) {
@@ -143,7 +143,7 @@ d3.json("/bikeshare", function(bikeresponse) {
             .on('click'))  
             };
         };
-console.log(bikeUp);
+// console.log(bikeUp);
 var satellite = L.tileLayer("https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}", {
   attribution: "Map data &copy; <a href=\"https://www.openstreetmap.org/\">OpenStreetMap</a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>, Imagery © <a href=\"https://www.mapbox.com/\">Mapbox</a>",
   maxZoom: 18,
