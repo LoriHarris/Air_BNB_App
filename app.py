@@ -33,6 +33,17 @@ def names():
     data = pd.DataFrame(list(collection.find({})))
     return jsonify(list(data.neighbourhood))
 
+@app.route("/venues_json")
+def venues_json():
+    collection = mongo.db.venues_json
+    data = {}
+    myquery = {}   
+
+    for json in collection.find(myquery):
+        data.update({'type': json['features']})
+    
+    return jsonify(data)
+
 @app.route("/geojson")
 def geojson():
     collection = mongo.db.geojson

@@ -1,5 +1,4 @@
 
-function granim() {
 var granimInstance = new Granim({
   element: '#canvas-image-blending',
   direction: 'top-bottom',
@@ -22,28 +21,6 @@ var granimInstance = new Granim({
 });
 
 
-var granimInstance1 = new Granim({
-  element: '#canvas-image-blending1',
-  direction: 'top-bottom',
-  isPausedWhenNotInView: true,
-  image : {
-      source: "../../templates/images/Header_image.png",
-      blendingMode: 'multiply'
-  },
-  states : {
-      "default-state": {
-          gradients: [
-              ['#29323c', '#485563'],
-              ['#FF6B6B', '#556270'],
-              ['#80d3fe', '#7ea0c4'],
-              ['#f0ab51', '#eceba3']
-          ],
-          transitionSpeed: 7000
-      }
-  }
-});
-};
-granim();
 var url = "/geojson";
 
 
@@ -91,10 +68,21 @@ d3.json("/geojson", function(response) {
 
     var neighbourhoods = L.geoJSON(neighborhoodData, {
       onEachFeature: function (feature, layer) {
-        layer.bindPopup('<h1>'+feature.properties.neighbourhood+'</h1>');
+        layer.bindPopup('<h7>'+feature.properties.neighbourhood+'</h7>');
       }
     }) 
   }; 
+  d3.json("/venues_json", function (venueResponse) {
+    createVenues(venueResponse.type);
+  });
+  function createVenues(venueData) {
+    for (var i = 0; i < venueData.length; i++) {
+      var venues = L.geoJSON(venueData, {
+        onEachFeature: function (feature, layer) {
+          layer.bindPopup('<h7>' + feature.properties.liveperformancevenuesandgroups + '</h7><hr><h7>' + feature.properties.address+ '<h7');
+        }
+      })
+    }
   
 d3.json("/bikeshare", function(bikeresponse) {
   console.log(bikeresponse.type);
@@ -111,7 +99,7 @@ d3.json("/bikeshare", function(bikeresponse) {
             icon:bikeIcon
         }
         )
-        .bindPopup("<h3>Magnitude: " + properties.sign_type + "<h3><h3>Location: " + properties.station_number + "<h3>")
+        .bindPopup("<h7>Type: " + properties.sign_type + "<h7><h8>Station No.: " + properties.station_number + "<h8>")
         .on('click'))  
         };
     };
@@ -130,7 +118,7 @@ d3.json("/bikeshare", function(bikeresponse) {
       
         markers.addLayer(L.marker((coordinates), {
           icon:beerIcon})
-        .bindPopup("<h1>" + hostData[i].name + "</h1> <hr> <h3>Price: " + hostData[i].price + "</h3>"));
+        .bindPopup("<h7>" + hostData[i].name + "</h7> <hr> <h8>Price: $" + hostData[i].price + "</h8>"));
         // console.log(hosts)
       }
     d3.json("/brewery_json", function(data) {
@@ -146,7 +134,7 @@ d3.json("/bikeshare", function(bikeresponse) {
         var coordinates1 = [brewData[i].Latitude, brewData[i].Longitude];
         // console.log(coordinates1) 
       
-        brews.addLayer(L.marker(coordinates1).bindPopup("<h1>" + brewData[i].Name + "</h1> <hr> <h3>Phone: " + brewData[i].Phone + "</h1><hr><h3>Location: "+ brewData[i].Street + "</h3>"));
+        brews.addLayer(L.marker(coordinates1).bindPopup("<h7>" + brewData[i].Name + "</h7> <hr> <h8>Phone: " + brewData[i].Phone + "</h8><hr><h8>Location: "+ brewData[i].Street + "</h8>"));
         // console.log(hosts)
       }
     d3.json("/museums", function(mus_response) {
@@ -164,7 +152,7 @@ d3.json("/bikeshare", function(bikeresponse) {
                 icon:musIcon
             }
             )
-            .bindPopup("<h3>Magnitude: " + properties.museum + "<h3><h3>Location: " + properties.address + "<h3>")
+            .bindPopup("<h7>Name: " + properties.museum + "<h7><h8>Location: " + properties.address + "<h8>")
             .on('click'))  
             };
         };
@@ -182,7 +170,6 @@ var streetmap = L.tileLayer("https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.pn
   id: "mapbox.streets",
   accessToken: API_KEY
 });
-// var magnitude = L.featureGroup(circles);
 var popUp1 = L.layerGroup(popUp);
 var bikeUp1 = L.layerGroup(bikeUp);
 var musUp1 = L.layerGroup(musUp);
@@ -192,20 +179,22 @@ var basemaps = {
   "Street Map" : streetmap
 };
 var overlaymaps = {
-  "Bike Stations" : bikeUp1,
-  "Neighborhoods" : neighbourhoods,
-  "Museums" : musUp1,
   "Air BNB Hosts" : markers,
-  "Breweries" : brews
-};
+  "Bike Stations" : bikeUp1,
+  "Breweries" : brews,
+  "Live Venues" : venues,
+  "Museums" : musUp1,
+  "Neighborhoods" : neighbourhoods
+  
+    };
 var myMap = L.map("map", {
-  center: [29.95, -89.75],
+  center: [30, -90],
   zoom:10,
   layers: [streetmap, markers]
 });
 
 L.control.layers(basemaps, overlaymaps, {
   collapsed: false
-}).addTo(myMap)}}}}};
+}).addTo(myMap)}}}}}};
   
 

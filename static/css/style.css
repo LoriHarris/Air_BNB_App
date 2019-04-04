@@ -13,20 +13,7 @@
  
 }
 
-#canvas-image-blending1 {
-  position: relative;
-  display: inherit;
-  width: 100%;
-  height: auto;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  max-height:400px;
-  min-height: 400px;
-  min-width:1005px;
- 
-}
+
 
 #street-view {
   height: 100%;
@@ -41,6 +28,9 @@ body {
 }
 table {
   text-align: center;
+  margin: 0px auto !important;
+  width: 88% !important;
+
  
 }
 td{
