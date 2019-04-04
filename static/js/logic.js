@@ -1,3 +1,4 @@
+
 var granimInstance = new Granim({
   element: '#canvas-image-blending',
   direction: 'top-bottom',
@@ -51,7 +52,7 @@ var beerIcon =
         shape: "star"
         });
 d3.json("/geojson", function(response) {
-    // console.log(response.type)
+    console.log(response.type)
     createFeatures(response.type);
     
   });
@@ -66,13 +67,13 @@ d3.json("/geojson", function(response) {
 
     var neighbourhoods = L.geoJSON(neighborhoodData, {
       onEachFeature: function (feature, layer) {
-        layer.bindPopup('<h8>'+feature.properties.neighbourhood+'</h8>');
+        layer.bindPopup('<h1>'+feature.properties.neighbourhood+'</h1>');
       }
     }) 
   }; 
   
 d3.json("/bikeshare", function(bikeresponse) {
-  // console.log(bikeresponse.type);
+  console.log(bikeresponse.type);
   createBikes(bikeresponse.type);
 });
   function createBikes(bikeData) {
@@ -86,7 +87,7 @@ d3.json("/bikeshare", function(bikeresponse) {
             icon:bikeIcon
         }
         )
-        .bindPopup("<h8>Bike Type: " + properties.sign_type + "</h8><h8>Location: " + properties.station_number + "</h8>")
+        .bindPopup("<h3>Magnitude: " + properties.sign_type + "<h3><h3>Location: " + properties.station_number + "<h3>")
         .on('click'))  
         };
     };
@@ -105,7 +106,7 @@ d3.json("/bikeshare", function(bikeresponse) {
       
         markers.addLayer(L.marker((coordinates), {
           icon:beerIcon})
-        .bindPopup("<h8>" + hostData[i].name + "</h8> <hr> <h8>Price: $" + hostData[i].price + "</h8>"));
+        .bindPopup("<h1>" + hostData[i].name + "</h1> <hr> <h3>Price: " + hostData[i].price + "</h3>"));
         // console.log(hosts)
       }
     d3.json("/brewery_json", function(data) {
@@ -121,11 +122,11 @@ d3.json("/bikeshare", function(bikeresponse) {
         var coordinates1 = [brewData[i].Latitude, brewData[i].Longitude];
         // console.log(coordinates1) 
       
-        brews.addLayer(L.marker(coordinates1).bindPopup("<h8>" + brewData[i].Name + "</h8> <hr> <h8>Phone: " + brewData[i].Phone + "</h8><hr><h8>Location: "+ brewData[i].Street + "</h8>"));
+        brews.addLayer(L.marker(coordinates1).bindPopup("<h1>" + brewData[i].Name + "</h1> <hr> <h3>Phone: " + brewData[i].Phone + "</h1><hr><h3>Location: "+ brewData[i].Street + "</h3>"));
         // console.log(hosts)
       }
     d3.json("/museums", function(mus_response) {
-      // console.log(mus_response.type);
+      console.log(mus_response.type);
       createBikes(mus_response.type);
     });
       function createBikes(musData) {
@@ -139,11 +140,11 @@ d3.json("/bikeshare", function(bikeresponse) {
                 icon:musIcon
             }
             )
-            .bindPopup("<h8>Bke Type: " + properties.museum + "</h8><h8>Location: " + properties.address + "<h8>")
+            .bindPopup("<h3>Magnitude: " + properties.museum + "<h3><h3>Location: " + properties.address + "<h3>")
             .on('click'))  
             };
         };
-// console.log(bikeUp);
+console.log(bikeUp);
 var satellite = L.tileLayer("https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}", {
   attribution: "Map data &copy; <a href=\"https://www.openstreetmap.org/\">OpenStreetMap</a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>, Imagery © <a href=\"https://www.mapbox.com/\">Mapbox</a>",
   maxZoom: 18,
@@ -167,38 +168,20 @@ var basemaps = {
   "Street Map" : streetmap
 };
 var overlaymaps = {
- "Airbnb Hosts" : markers,
   "Bike Stations" : bikeUp1,
-  "Breweries" : brews,
+  "Neighborhoods" : neighbourhoods,
   "Museums" : musUp1,
-  "Neighborhoods" : neighbourhoods
- 
+  "Air BNB Hosts" : markers,
+  "Breweries" : brews
 };
 var myMap = L.map("map", {
-  center: [30.02, -89.93],
+  center: [29.95, -89.75],
   zoom:10,
   layers: [streetmap, markers]
 });
-// var legend = L.control({position: 'bottomright'});
 
-// legend.onAdd = function (map) {
-
-//     var div = L.DomUtil.create('div', 'info legend'),
-//         magRange = [0,1,2,3,4,5,6,7,8],
-//         labels = [];
-
-//     // loop through our density intervals and generate a label with a colored square for each interval
-//     for (var i = 0; i < magRange.length; i++) {
-//         div.innerHTML +=
-//             '<i style="background:' + getColor(magRange[i] + 1) + '"></i> ' +
-//             magRange[i] + (magRange[i + 1] ? '&ndash;' + magRange[i + 1] + '<br>' : '+');
-//     }
-
-//     return div;
-// };
-
-// legend.addTo(myMap);
 L.control.layers(basemaps, overlaymaps, {
   collapsed: false
 }).addTo(myMap)}}}}};
   
+

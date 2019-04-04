@@ -65,25 +65,32 @@
     </div>
     <div class = "container">
     <div class = "row">
-      <div class = "col-md-6">
+      <div class = "col-md-3">
           <div class="well">
-              <h3><h4curly>SELECT Neighborhood:</h3></h4curly>
-                <select id="selDataset" onchange="optionChanged(this.value)">
+              <h3><h4curly>Neighborhood:</h3></h4curly>
+          </div>
+        </div>
+        <div class = "col-md-3">  
+          <div class = "well">
+        <select id="selDataset" onchange="optionChanged(this.value)">
                   <option></option>
                 </select> 
                 </div>
               </div>
   
-   <div class = "col-md-6">
+   <div class = "col-md-3">
       <div class="well">
-          <h3><h4curly>SELECT Listing:</h3></h4curly>
-            <select id="selListing" onchange="optionChanged1(this.value)">
-              <option></option>
+          <h3><h4curly>Explore a Listing:</h3></h4curly>
+      </div>
+    </div>
+    <div class ="col-md-3">
+                <select id="selListing" onchange="optionChanged1(this.value)">
+              <option id="option"></option>
             </select> 
             </div>
           </div>
    
-        </div>
+        
       
  
       <div class = "row">
@@ -92,8 +99,8 @@
     
           <!-- <iframe class="embed-responsive-item" name="theFrame"></iframe> -->
           <div class = "col-md-12">
-              <table class="table table-striped table-hover ">
-                    <thead>
+              <table class="table table-responsive table-striped table-hover ">
+                    <thead class="thead-dark">
                       <tr>
                         <th>Neighborhood</th>
                         <th>Price</th>
@@ -102,7 +109,6 @@
                         <th>Baths</th>
                         <th>Total Beds</th>
                         <th>Property Type</th>
-                        <th>Accommodates</th>
                         <th>Minimum Nights</th>
                         <th>Rank</th>
                         <th>Walk Score</th>
@@ -120,7 +126,6 @@
                         <td id="bath"></td>
                         <td id="beds"></td>
                           <td id="ptype"></td>
-                          <td id ="acc"></td>
                           <td id="min"></td>
                           <td id="rank"></td>
                           <td id="walk"></td>
@@ -133,13 +138,14 @@
                   </div>
 
      <!-- <div class="container"> -->
-  
+  <div class = "row">
       <div class="col-md-12">
         <div id="map"></div>
       </div>
-   
+      
+    </div>
   
-              </div>
+              
 
   </body>
       <script type="text/javascript" src="static/js/leaflet.extra-markers.min.js"></script>

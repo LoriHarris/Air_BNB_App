@@ -5,7 +5,7 @@ function buildMetadata(sample) {
   d3.json(`/hood_json/${sample}`, function(data) {
     var data = [data];
     console.log(data);
- 
+  d3.select("#neighborhood").text(data[0]['Name']);
   d3.select("#bike").text(data[0]['Bike Score']);
   d3.select("#walk").text(data[0]['Walk Score']);
   d3.select("#transit").text(data[0]['Transit Score']);
@@ -19,11 +19,9 @@ function buildListingdata(sample) {
   d3.json(`/url/${sample}`, function(data) {
     var data = [data];
   
-  d3.select("#neighborhood").text(data[0]['area']);
   d3.select("#price").text(data[0]['price']);
   d3.select("#ltype").text(data[0]['room type']);
   d3.select("#ptype").text(data[0]['property_type']);
-  d3.select("#acc").text(data[0]['accommodates']);
   d3.select("#beds").text(data[0]['beds']);
   d3.select("#br").text(data[0]['bedrooms']);
   d3.select("#bath").text(data[0]['bathrooms']);
@@ -32,52 +30,7 @@ function buildListingdata(sample) {
   
   });
 }
-// var list_items = [];
-// var list_items1 = [];
 
-// function buildMetadata(sample) {
- 
-//   d3.json(`/hood_json/${sample}`, function(data) {
-//     var data = [data];
-//     console.log(data);
-//   var meta_chart = d3.select("tbody");
-//   meta_chart.html("");
-//   data.forEach((data) => {
-//     list_items.push(Object.values(data));
-//     var row1 = meta_chart.append("tr");
-//     Object.entries(data).forEach(([key, value]) => {
-//       var cell = row1.append("td");
-//       cell.text(value);
-     
-//     });
-//   });
-// });
-// }
-
-// function buildListingdata(sample) {
- 
-//   d3.json(`/url/${sample}`, function(data) {
-//     var data = [data];
-//     console.log(data[0]['area']);
-//   var meta_chart = d3.select("#sample-listingdata");
-//   meta_chart.html("");
-//   data.forEach((data) => {
-//     list_items1.push(Object.values(data));
-//     var row1 = meta_chart.append("table-responsive");
-//     var row = meta_chart.append("tbody");
-//     Object.entries(data).forEach(([key, value]) => {
-//       var cell = row.append("tr");
-      
-//       cell.text(`${key}: ${value}`);
-      
-//     // console.log(`Key: ${key} | Value: ${value}`);
-//     });
-//   });
-// });
-// }
-
-
-// function init () {
   var selector = d3.select("#selDataset");
 
   // Use the list of sample names to populate the select options
@@ -93,6 +46,7 @@ function buildListingdata(sample) {
 
 names =[];
 var selector1 = d3.select("#selListing");
+var selector2 = d3.select()
 function optionChanged(newSample) {
   d3.json(`listings/${newSample}`, function(listingData) {
     createData(listingData);
@@ -124,6 +78,8 @@ function optionChanged(newSample) {
       for (var i = 0; i < listings.length; i++) {
         names.push(listings[i].name);
         console.log(listings[i].listing_url);
+        // selector1
+        // .on("click", function )
       
           }
   }

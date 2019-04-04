@@ -12,6 +12,9 @@
   min-width:1005px;
  
 }
+#street-view {
+  height: 100%;
+}
 .jumbotron {
   padding: 0rem 0rem ! important;
   margin-top: 2rem ! important;
@@ -19,7 +22,19 @@
 
 body {
   background-color: lightgrey ! important;
-
+}
+table {
+  text-align: center;
+ 
+}
+td{
+  border:.15px solid black;
+  }
+#selListing {
+  width: 15rem !important;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  hyphens: auto;
 }
 .well {
   margin-bottom: 1rem;
