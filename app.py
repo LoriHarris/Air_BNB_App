@@ -22,7 +22,9 @@ def index():
     json_info = mongo.db.geojson.find_one({})
   
     return render_template("index.html", data=json_info)
-
+@app.route("/test")
+def landing():
+    return render_template("test.html")
 
 @app.route("/names")
 def names():
