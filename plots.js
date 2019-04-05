@@ -1,33 +1,78 @@
 // Sort the data array using the greekSearchResults value
-data.sort(function(a, b) {
+var walkData = data
+walkData.sort(function(a, b) {
   return parseFloat(b.WalkScore) - parseFloat(a.WalkScore);
 });
 
 // Slice the first 10 objects for plotting
-data = data.slice(0, 10);
+walkData = walkData.slice(0, 10);
 
 // Reverse the array due to Plotly's defaults
-data = data.reverse();
+walkData = walkData.reverse();
+console.log(walkData);
 
 var trace1 = {
-  x: data.map(row => row.WalkScore),
-  y: data.map(row => row.hood),
-  text: data.map(row => row.hood),
+  x: walkData.map(row => row.WalkScore),
+  y: walkData.map(row => row.hood),
+  text: walkData.map(row => row.hood),
   name: "Neighborhood",
   type: "bar",
   orientation: "h",
   marker: {
-    color: data.map(row => row.WalkScore),
+    color: walkData.map(row => row.WalkScore),
     colorscale: "Vidris"
   }
 };
+var tranData = data
+tranData.sort(function(a, b) {
+  return parseFloat(b.TransitScore) - parseFloat(a.TransitScore);
+});
 
-// data
-var data = [trace1];
+// Slice the first 10 objects for plotting
+tranData = tranData.slice(0, 10);
 
+// Reverse the array due to Plotly's defaults
+tranData = tranData.reverse();
+
+var trace2 = {
+  x: tranData.map(row => row.TransitScore),
+  y: tranData.map(row => row.hood),
+  text: tranData.map(row => row.hood),
+  name: "Neighborhood",
+  type: "bar",
+  orientation: "h",
+  marker: {
+    color: tranData.map(row => row.TransitScore),
+    colorscale: "Vidris"
+  }
+};
+var bkData = data
+bkData.sort(function(a, b) {
+  return parseFloat(b.TransitScore) - parseFloat(a.TransitScore);
+});
+
+// Slice the first 10 objects for plotting
+bkData = bkData.slice(0, 10);
+
+// Reverse the array due to Plotly's defaults
+bkData = bkData.reverse();
+
+var trace3 = {
+  x: bkData.map(row => row.TransitScore),
+  y: bkData.map(row => row.hood),
+  text: bkData.map(row => row.hood),
+  name: "Neighborhood",
+  type: "bar",
+  orientation: "h",
+  marker: {
+    color: bkData.map(row => row.TransitScore),
+    colorscale: "Vidris"
+  }
+};
 // Apply the group bar mode to the layout
-var layout = {
-  title: "Neighborhood Walk Score Top 10",
+var layout1 = {
+  title: "Neighborhood Walk Scores Top 10"
+  ,
   margin: {
     l: 300,
     r: 100,
@@ -36,51 +81,33 @@ var layout = {
   }
 };
 
-// Render the plot to the div tag with id "plot"
-Plotly.newPlot("plot", data, layout);
+var layout2 = {
+  title: "Neighborhood Transit Scores Top 10"
+  ,
+  margin: {
+    l: 300,
+    r: 100,
+    t: 100,
+    b: 100
+  }
+};
 
-// // Sort the data array using the greekSearchResults value
-// data.sort(function(a, b) {
-//   return parseFloat(b.BikeScore) - parseFloat(a.BikeScore);
-// });
+var layout3 = {
+  title: "Neighborhood Bike Scores Top 10"
+  ,
+  margin: {
+    l: 300,
+    r: 100,
+    t: 100,
+    b: 100
+  }
+};
 
+// Render the plot
+Plotly.newPlot("plot", [trace1], layout1);
+Plotly.newPlot("plot2", [trace2], layout2);
+Plotly.newPlot("plot3", [trace3], layout3);
 
-// // Reverse the array due to Plotly's defaults
-// data = data.reverse();
-
-// // Trace1 for the Greek Data
-// var trace2 = {
-//   x: data.map(row => row.BikeScore),
-//   y: data.map(row => row.hood),
-//   text: data.map(row => row.hood),
-//   name: "Neighborhood",
-//   type: "bar",
-//   orientation: "h",
-//   marker: {
-//     color: data.map(row => row.WalkScore),
-//     colorscale: "Vidris",
-// }
-// };
-
-// // data
-// var data2 = [trace2];
-
-// // Apply the group bar mode to the layout
-// var layout2 = {
-//   title: "Neighborhood Walk Score Top 10"
-//   ,
-// //   yaxis2=dict(
-// //     autorange='reversed'
-// // ),
-//   margin: {
-//     l: 300,
-//     r: 100,
-//     t: 100,
-//     b: 100
-//   }
-// };
-// // Render the plot to the div tag with id "plot"
-// Plotly.newPlot("plot2", data2, layout2);
 
 
 
