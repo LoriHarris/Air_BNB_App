@@ -118,10 +118,11 @@ d3.json("/bikeshare", function(bikeresponse) {
       
         markers.addLayer(L.marker((coordinates), {
           icon:beerIcon})
-        .bindPopup("<h7>" + hostData[i].name + "</h7> <hr> <h8>Price: $" + hostData[i].price + "</h8>"));
+        .bindPopup("<h7>" + hostData[i].name + "</h7> <hr> <h8>Price: $" + hostData[i].price + `</h8><a href="${hostData[i].listing_url}" target="_blank"> Click here to book!</a>`));
+        
         // console.log(hosts)
-      }
-    d3.json("/brewery_json", function(data) {
+      };
+          d3.json("/brewery_json", function(data) {
       // console.log(data)
       createBrews(data);
       });

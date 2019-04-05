@@ -45,6 +45,7 @@ table {
   text-align: center;
   margin: 0px auto !important;
   width: 88% !important;
+  margin-bottom: 3rem !important;
 
  
 }
@@ -71,13 +72,18 @@ td{
 }
 @import url('https://fonts.googleapis.com/css?family=Old+Standard+TT|Playfair+Display|Playfair+Display+SC');
 
- h1, h2, h3, h4, h5, h6, h7 {
+ h1, h2, h3, h4, h5, h6, h7, a {
   font-family: 'Old Standard TT', serif !important;
   font-weight: 1700 !important;
   color: #085296 !important;
   
 }
-
+h8 {
+  font-family: 'Old Standard TT', serif !important;
+  font-weight: 1700 !important;
+  color: black !important;
+  
+}
 /* 
 .wrapper {
 position: relative;
@@ -107,8 +113,9 @@ margin: 0;
 position: relative;
 border: 1px solid black;
 border-radius: 8px;
-height: 300px;  /* or as desired */
+height: 400px;  /* or as desired */
 width: 100%;  /* This means "100% of the width of its container", the .col-md-8 */
+margin-bottom: 10rem
 }
 /* Mapbox IDs
 Classic
