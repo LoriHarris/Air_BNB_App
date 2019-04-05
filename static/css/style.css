@@ -39,7 +39,7 @@
 }
 
 body {
-  background-color: #29323c ! important;
+  background-color: lightgray ! important;
 }
 table {
   text-align: center;
@@ -74,7 +74,7 @@ td{
  h1, h2, h3, h4, h5, h6, h7 {
   font-family: 'Old Standard TT', serif !important;
   font-weight: 1700 !important;
-  color: gray !important;
+  color: #085296 !important;
   
 }
 

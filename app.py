@@ -25,7 +25,9 @@ def index():
 @app.route("/New_Orleans.html")
 def landing():
     return render_template("New_Orleans.html")
-
+@app.route("/Visualizations.html")
+def visuals():
+    return render_template("Visualizations.html")
 @app.route("/names")
 def names():
    
