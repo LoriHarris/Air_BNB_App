@@ -39,7 +39,7 @@
 }
 
 body {
-  background-color: lightgrey ! important;
+  background-color: #29323c ! important;
 }
 table {
   text-align: center;
@@ -63,6 +63,19 @@ td{
 
 .select {
   background-color: white !important;
+}
+
+.text-center {
+  text-align: center !important;
+  vertical-align: middle !important;
+}
+@import url('https://fonts.googleapis.com/css?family=Old+Standard+TT|Playfair+Display|Playfair+Display+SC');
+
+ h1, h2, h3, h4, h5, h6, h7 {
+  font-family: 'Old Standard TT', serif !important;
+  font-weight: 1700 !important;
+  color: gray !important;
+  
 }
 
 /* 
