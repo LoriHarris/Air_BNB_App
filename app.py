@@ -22,14 +22,29 @@ def index():
     json_info = mongo.db.geojson.find_one({})
   
     return render_template("index.html", data=json_info)
-
-
+@app.route("/New_Orleans.html")
+def landing():
+    return render_template("New_Orleans.html")
+@app.route("/Visualizations.html")
+def visuals():
+    return render_template("Visualizations.html")
 @app.route("/names")
 def names():
    
     collection = mongo.db.neighborhoods
     data = pd.DataFrame(list(collection.find({})))
     return jsonify(list(data.neighbourhood))
+
+@app.route("/venues_json")
+def venues_json():
+    collection = mongo.db.venues_json
+    data = {}
+    myquery = {}   
+
+    for json in collection.find(myquery):
+        data.update({'type': json['features']})
+    
+    return jsonify(data)
 
 @app.route("/geojson")
 def geojson():

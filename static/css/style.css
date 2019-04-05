@@ -12,14 +12,50 @@
   min-width:1005px;
  
 }
+
+.hero {
+  position: relative;
+  
+  margin: 0;
+  background-image: url(img/skyline.png);
+  background-attachment: fixed;
+  
+  background-position: bottom center;
+  background-size: cover;
+  text-align: center !important;
+  vertical-align: middle;
+  background-attachment: fixed;
+ 
+  padding-top: 5%;
+  padding-bottom: 5%;
+}
+
+#street-view {
+  height: 100%;
+}
 .jumbotron {
   padding: 0rem 0rem ! important;
   margin-top: 2rem ! important;
 }
 
 body {
-  background-color: lightgrey ! important;
+  background-color: lightgray ! important;
+}
+table {
+  text-align: center;
+  margin: 0px auto !important;
+  width: 88% !important;
 
+ 
+}
+td{
+  border:.15px solid black;
+  }
+#selListing {
+  width: 15rem !important;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  hyphens: auto;
 }
 .well {
   margin-bottom: 1rem;
@@ -27,6 +63,19 @@ body {
 
 .select {
   background-color: white !important;
+}
+
+.text-center {
+  text-align: center !important;
+  vertical-align: middle !important;
+}
+@import url('https://fonts.googleapis.com/css?family=Old+Standard+TT|Playfair+Display|Playfair+Display+SC');
+
+ h1, h2, h3, h4, h5, h6, h7 {
+  font-family: 'Old Standard TT', serif !important;
+  font-weight: 1700 !important;
+  color: #085296 !important;
+  
 }
 
 /* 
@@ -58,7 +107,7 @@ margin: 0;
 position: relative;
 border: 1px solid black;
 border-radius: 8px;
-height: 700px;  /* or as desired */
+height: 300px;  /* or as desired */
 width: 100%;  /* This means "100% of the width of its container", the .col-md-8 */
 }
 /* Mapbox IDs
