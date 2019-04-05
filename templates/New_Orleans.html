@@ -46,7 +46,7 @@
                 <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="themes">Cities<span class="caret"></span></a>
                 <div class="dropdown-menu" aria-labelledby="themes">
                   
-                  <a class="dropdown-item" href="about.html">About</a>
+                  <a class="dropdown-item" href="/">Home</a>
                   
                   <div class="dropdown-divider"></div>
                   <a class="dropdown-item" href="New_Orleans.html">New Orleans</a>
@@ -73,37 +73,93 @@
 
   <div class = "jumbotron">
     <!-- <div class = "container"> -->
-    <canvas id="canvas-image-blending" width= "2100" height = "630"></canvas>
+    <canvas id="canvas-image-blending" width= "2000" height = "630"></canvas>
     </div>
-<div class ="container">
+    <div class = "container">
     <div class = "row">
-      <div class = "col-md-4">
-        <img src="static/img/beer.png" width=400 height=300/>
+      <div class = "col-md-3">
+          <div class="well">
+              <h3><h4curly>Neighborhood:</h3></h4curly>
+          </div>
+        </div>
+        <div class = "col-md-3">  
+          <div class = "well">
+        <select id="selDataset" onchange="optionChanged(this.value)">
+                  <option></option>
+                </select> 
+                </div>
+              </div>
+  
+   <div class = "col-md-3">
+      <div class="well">
+          <h3><h4curly>Explore a Listing:</h3></h4curly>
       </div>
-      <div class = "col-md-8">
-      <div class = "container">
-      <div class = "col-md-12">
-        <h2>Your Airbnb selection should to lead you to all the things you love most</h2>
-      </div></div>
-    </div></div>
-  </div>
-  <div class ="container">
+    </div>
+    <div class ="col-md-3">
+                <select id="selListing" onchange="optionChanged1(this.value)">
+              <option id="option"></option>
+            </select> 
+            </div>
+          </div>
+   
+        
+      
+ 
       <div class = "row">
-       
-        <div class = "col-md-8">
-        <div class = "container">
-        <div class = "col-md-12">
-          <h2>Your Airbnb selection should to lead you to all the things you love most</h2>
-        </div></div>
-      </div> <div class = "col-md-4">
-          <img src="static/img/beer.png" width=400 height=300/>
-        </div></div>
-    </div>   
+        
+         
+    
+          <!-- <iframe class="embed-responsive-item" name="theFrame"></iframe> -->
+          <div class = "col-md-12">
+              <table class="table table-responsive table-striped table-hover ">
+                    <thead class="thead-dark">
+                     
+                        <tr>
+                        <th>Price</th>
+                        <th>Listing Type</th>
+                        <th>Bedrooms</th>
+                        <th>Baths</th>
+                        <th>Total Beds</th>
+                        <th>Minimum Nights</th>
+                        <th>Walk Score</th>
+                        <th>Bike Score</th>
+                        <th>Transit Score</th>
+                        
+                      </tr>
+                    </thead>  
+                    <tbody>
+                      <tr id="row">
+                     
+                      <td id ="price"></td>
+                        <td id="ltype"></td>
+                        <td id = "br"></td>
+                        <td id="bath"></td>
+                        <td id="beds"></td>
+                          <td id="min"></td>
+                        
+                          <td id="walk"></td>
+                          <td id="bike"></td>
+                          <td id="transit"></td>
+                      </tr>
+                     </tbody>
+                     </table>
+                    </div>
+                  </div>
+
+     <!-- <div class="container"> -->
+  <div class = "row">
+      <div class="col-md-12">
+        <div id="map"></div>
+      </div>
+      
+    </div>
+  
+              
 
   </body>
       <script type="text/javascript" src="static/js/leaflet.extra-markers.min.js"></script>
       <script type="text/javascript" src="static/js/config.js"></script>
-      <script type="text/javascript" src="static/js/info_page.js"></script>
+      <script type="text/javascript" src="static/js/logic.js"></script>
       <script type="text/javascript" src="static/js/app.js"></script>
 
 

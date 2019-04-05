@@ -13,7 +13,22 @@
  
 }
 
-
+.hero {
+  position: relative;
+  
+  margin: 0;
+  background-image: url(img/skyline.png);
+  background-attachment: fixed;
+  
+  background-position: bottom center;
+  background-size: cover;
+  text-align: center !important;
+  vertical-align: middle;
+  background-attachment: fixed;
+ 
+  padding-top: 5%;
+  padding-bottom: 5%;
+}
 
 #street-view {
   height: 100%;
