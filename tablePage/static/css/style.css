@@ -1,0 +1,129 @@
+#canvas-image-blending {
+  position: relative;
+  display: inherit;
+  width: 100%;
+  height: auto;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  max-height:400px;
+  min-height: 400px;
+  min-width:1005px;
+ 
+}
+
+#canvas-image-blending1 {
+  position: relative;
+  display: inherit;
+  width: 100%;
+  height: auto;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  max-height:400px;
+  min-height: 400px;
+  min-width:1005px;
+ 
+}
+
+#street-view {
+  height: 100%;
+}
+.jumbotron {
+  padding: 0rem 0rem ! important;
+  margin-top: 2rem ! important;
+}
+
+body {
+  background-color: lightgrey ! important;
+}
+table {
+  text-align: center;
+ 
+}
+td{
+  border:.15px solid black;
+  }
+#selListing {
+  width: 15rem !important;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  hyphens: auto;
+}
+.well {
+  margin-bottom: 1rem;
+}
+
+.select {
+  background-color: white !important;
+}
+
+/* 
+.wrapper {
+position: relative;
+min-height: 100%;
+padding-bottom: 130px;
+overflow: auto;
+} */
+
+/* .navbar {
+padding: 5px;
+margin: 0;
+} */
+
+.legend {
+ line-height: 18px;
+ color: black;
+ background-color: white;
+}
+.legend i {
+ width: 22px;
+ height: 18px;
+ float: left;
+ margin-right: 8px;
+ opacity: 0.9;
+}
+#map {
+position: relative;
+border: 1px solid black;
+border-radius: 8px;
+height: 300px;  /* or as desired */
+width: 100%;  /* This means "100% of the width of its container", the .col-md-8 */
+}
+/* Mapbox IDs
+Classic
+Light
+Dark
+Satellite
+Satellite Streets
+Wheatpaste
+Streets Classic
+Comic
+Outdoors
+Run, Bike, Hike
+Pencil
+Pirates
+Emerald
+High Contrast */
+
+/* Three image containers (use 25% for four, and 50% for two, etc) */
+.column {
+  float: left;
+  width: 50%;
+  padding: 5px;
+}
+  /* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 750px) {
+  .column {
+    width: 100%;
+  }
+}
+
+/* Clear floats after image containers */
+.row::after {
+  content: "";
+  clear: both;
+  display: table;
+}

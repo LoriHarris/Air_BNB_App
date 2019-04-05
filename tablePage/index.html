@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Guide to: Airbnb</title>
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.3/dist/leaflet.css"
+  integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ=="
+  crossorigin=""/>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <script src="https://cdn.plot.ly/plotly-1.31.2.min.js"></script>
+  <script src="https://unpkg.com/leaflet@1.3.3/dist/leaflet.js"
+  integrity="sha512-tAGcCfR4Sc5ZP5ZoVz0quoZDYX5aCtEm/eu1KhSLj2c9eFrylXZknQYmxUssFaVJKvvc0dJQixhGjG2yXWiV9Q=="
+  crossorigin=""></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.5.0/d3.min.js"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="static/css/style.css">
+  <link rel="stylesheet" type="text/css" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <link rel="stylesheet" href="static/css/leaflet.extra-markers.min.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.2.1/journal/bootstrap.min.css">
+
+   <!-- Marker Cluster JS & CSS -->
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/granim/2.0.0/granim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/granim/2.0.0/granim.js"></script>
+   <script type="text/javascript" src="https://unpkg.com/leaflet.markercluster@1.0.3/dist/leaflet.markercluster.js"></script>
+   <link rel="stylesheet" type="text/css" href="https://unpkg.com/leaflet.markercluster@1.0.3/dist/MarkerCluster.css">
+   <link rel="stylesheet" type="text/css" href="https://unpkg.com/leaflet.markercluster@1.0.3/dist/MarkerCluster.Default.css">
+</head>
+
+<body>
+<!-- copied from main search page -->
+    <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+         
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarColor02">
+            <ul class="navbar-nav">
+               
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="about.html">About</a>
+              </li>
+            
+              <li class="nav-item">
+                <a class="nav-link" href="https://github.com/LoriHarris/Air_bnb_app" target="_blank">Git Repo</a>
+              </li>
+            </ul>
+            <ul class="nav navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" >Team Air Be and See / WAM</a>
+                  </li>
+              </ul>
+    
+          </div>
+        </div>
+      </div>
+
+  <div class = "jumbotron">
+    <!-- <div class = "container"> -->
+    <canvas id="canvas-image-blending" width= "2000" height = "630"></canvas>
+    </div>
+
+
+<!-- copied from UFO homework -->
+    <div class="hero text-center">
+      <h1>NOLA listings</h1>
+      <p>learn more</p>
+    </div>
+    <div class="container">
+      <div class="row margin-top-50">
+        <div class="col-md-2">
+          <aside class="filters">
+            <div class="panel panel-default">
+              <div class="panel-heading">Filter Search</div>
+              <div class="panel-body">
+                <form>
+                  <div class="form-group">
+                    <ul class="list-group" id="filters">
+                      <li class="filter list-group-item">
+                        <label for="price">Enter a Price</label>
+                        <input class="form-control" id="price" type="text" placeholder="150">
+                      </li>
+                      <li class="filter list-group-item">
+                        <label for="beds"># of Beds</label>
+                        <input class="form-control" id="beds" type="text" placeholder="2">
+                      </li>
+                      <li class="filter list-group-item">
+                        <label for="bathrooms"># of Bathrooms</label>
+                        <input class="form-control" id="bathrooms" type="text" placeholder="1">
+                      </li>
+                      <li class="filter list-group-item">
+                        <label for="accomodates"># to Accommodate</label>
+                        <input class="form-control" id="accomodates" type="text" placeholder="4">
+                      </li>
+                      <li class="filter list-group-item">
+                        <label for="neighborhood">Neighborhood</label>
+                        <input class="form-control" id="neighborhood" type="text" placeholder="Marigny">
+                      </li>                  
+                    </ul>
+                  </div>
+                  <button id="filter-btn" type="submit" class="btn btn-default">Filter Table</button>
+                </form>
+              </div>
+            </div>
+          </aside>
+        </div>
+        <div class="col-md-10">
+          <div id="table-area" class="">
+            <table id="ufo-table" class="table table-striped">
+              <thead>
+                <tr>
+                  <th class="table-head">name</th>
+                  <th class="table-head">neighborhood</th>
+                  <th class="table-head">type</th>
+                  <th class="table-head">accomodates</th>
+                  <th class="table-head">bathrooms</th>
+                  <th class="table-head">bedrooms</th>
+                  <th class="table-head">beds</th>
+                  <th class="table-head">price</th>
+                  <th class="table-head">minimum_nights</th>
+                  <th class="table-head">listing_url</th>
+
+
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <footer class="footer">
+      <span class="bottom">Airbnb</span>
+    </footer>
+  </div>
+  <script src="static/js/condensed_listings.js"></script>
+  <script src="static/js/app.js"></script>
+</body>
+
+</html>
