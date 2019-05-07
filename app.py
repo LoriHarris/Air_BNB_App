@@ -9,9 +9,40 @@ from bson.objectid import ObjectId
 import pprint
 import sys
 import json
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
 
+import geopy
+from geopy import distance
+from geopy.distance import vincenty
+# from tqdm import tqdm
+# tqdm.pandas()
+import tensorflow as tf
+from keras.utils import to_categorical
+from sklearn.metrics import r2_score
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import GradientBoostingRegressor
+from sklearn.model_selection import RandomizedSearchCV
+from nltk.sentiment.vader import SentimentIntensityAnalyzer
+from collections import Counter
+from scipy import stats
+from dateutil import parser
+from sklearn.preprocessing import LabelEncoder, StandardScaler
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.naive_bayes import GaussianNB
+from sklearn.svm import SVC
+from sklearn.model_selection import KFold
+from sklearn.model_selection import cross_val_score
+k_fold = KFold(n_splits=10, shuffle=True, random_state=0)
+import numpy as np
+from keras.models import load_model
 
 app = Flask(__name__, static_url_path='', static_folder="")
+
 
 
 mongo = PyMongo(app, uri="mongodb://Lori:Les4783!@ds223756.mlab.com:23756/heroku_r58qkhd7")
@@ -22,6 +53,11 @@ def index():
     json_info = mongo.db.geojson.find_one({})
   
     return render_template("index.html", data=json_info)
+@app.route('/predict/<listing>')
+def api_call(listing):
+    
+    model=load_model("airbnb.h5")
+    encoded_predictions = model.predict_classes(listing)
 
 @app.route("/New_Orleans.html")
 def landing():
