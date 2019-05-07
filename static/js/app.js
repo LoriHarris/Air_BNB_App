@@ -45,6 +45,8 @@ function buildListingdata(sample) {
 
 
 names =[];
+models=[];
+console.log(names);
 var selector1 = d3.select("#selListing");
 var selector2 = d3.select()
 function optionChanged(newSample) {
@@ -74,10 +76,18 @@ function optionChanged(newSample) {
       buildListingdata(newSample1)
       createData(listingData);
     });
+    d3.json(`predict/${newSample1}`, function(modelData) {
+      buildListingdata(newSample1)
+      createModelData(modelData);
+    });
     function createData (listings) {
       for (var i = 0; i < listings.length; i++) {
         names.push(listings[i].name);
-        console.log(listings[i].listing_url);
+        console.log(listings[i].listing_url);}}
+    function createModelData (models) {
+      for (var i = 0; i < models.length; i++) {
+        models.push(models[i].Name);
+        console.log(models[i].Name);
         // selector1
         // .on("click", function )
       
@@ -86,4 +96,3 @@ function optionChanged(newSample) {
 
   }
 
-  
