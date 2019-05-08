@@ -34,7 +34,17 @@ function buildRecommendation(sample){
   d3.json(`/predict/${sample}`, function(data) {
     var data = [data];
   d3.select("#min").text(data[0][0]['pred']);
+  var message=data[0][0]['pred'];
   console.log(data[0][0]['pred'])
+  if (message=='Great Deal!'){
+    // window.alert(message);
+  Swal.fire({
+    title: 'YeeHaw!!',
+    text: 'You Scored An Amazing Deal!',
+    type: 'info',
+    confirmButtonText: 'Cool'
+  })
+}
 });
 }
 

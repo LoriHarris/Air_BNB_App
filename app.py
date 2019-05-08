@@ -116,7 +116,9 @@ def api_call(listing):
         'Acc': json['Acc'],
         '#Booked':json['#Booked'],
         'Price':json['Price'],
-        'Name':json['Name']
+        'Name':json['Name'],
+        'Polarity':json['Polarity']
+
         })
         listings.append(data)
     for json1 in collection.find(myquery1):
@@ -137,7 +139,8 @@ def api_call(listing):
         'Acc': json1['Acc'],
         '#Booked':json1['#Booked'],
         'Price':json1['Price'],
-        'Name':json1['Name']
+        'Name':json1['Name'],
+        'Polarity':json1['Polarity']
         })
         listings1.append(data1)
     test = pd.DataFrame(listings)
@@ -157,8 +160,9 @@ def api_call(listing):
     clf.fit(x1,y1)
     # pred=()
     prediction1=clf.predict(x)
+    # prediction1=model.predict_classes(x)
     if prediction1[0] < y[0]:
-        pred='Great Deal'
+        pred='Great Deal!'
     if prediction1[0]==y[0]:
         pred='Right on the money!'
     if prediction1[0] >y[0]:
