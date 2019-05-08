@@ -157,11 +157,13 @@ def api_call(listing):
     clf.fit(x1,y1)
     # pred=()
     prediction1=clf.predict(x)
-    if prediction1[0] >= y[0]:
+    if prediction1[0] < y[0]:
         pred='Great Deal'
-    else:
+    if prediction1[0]==y[0]:
+        pred='Right on the money!'
+    if prediction1[0] >y[0]:
         pred='Bad Deal'
-    prediction2=pd.DataFrame({"pred":pred, "sample":y})
+    prediction2=pd.DataFrame({"pred":pred, 'modl':prediction1[0],"sample":y})
     prediction=prediction2.to_json(orient="records")
     # print(prediction2)
     # print(pred)

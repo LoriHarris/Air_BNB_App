@@ -29,14 +29,14 @@ function buildListingdata(sample) {
 
   
   });
-
+}
 function buildRecommendation(sample){
   d3.json(`/predict/${sample}`, function(data) {
     var data = [data];
-  d3.select("#min").text(data[0]['pred']);
-
+  d3.select("#min").text(data[0][0]['pred']);
+  console.log(data[0][0]['pred'])
 });
-}}
+}
 
   var selector = d3.select("#selDataset");
 
@@ -85,7 +85,7 @@ function optionChanged(newSample) {
     });
     d3.json(`predict/${newSample1}`, function(modelData) {
       // buildListingdata(newSample1)
-      createModelData(newSample1);
+      buildRecommendation(newSample1);
     });
     // function createData (listings) {
     //   for (var i = 0; i < listings.length; i++) {
