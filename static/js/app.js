@@ -25,11 +25,18 @@ function buildListingdata(sample) {
   d3.select("#beds").text(data[0]['beds']);
   d3.select("#br").text(data[0]['bedrooms']);
   d3.select("#bath").text(data[0]['bathrooms']);
-  d3.select("#min").text(data[0]['minimum_nights']);
+  // d3.select("#min").text(data[0]['minimum_nights']);
 
   
   });
-}
+
+function buildRecommendation(sample){
+  d3.json(`/predict/${sample}`, function(data) {
+    var data = [data];
+  d3.select("#min").text(data[0]['pred']);
+
+});
+}}
 
   var selector = d3.select("#selDataset");
 
@@ -74,25 +81,18 @@ function optionChanged(newSample) {
   function optionChanged1(newSample1) {
     d3.json(`url/${newSample1}`, function(listingData) {
       buildListingdata(newSample1)
-      createData(listingData);
+      // createData(listingData);
     });
     d3.json(`predict/${newSample1}`, function(modelData) {
-      buildListingdata(newSample1)
-      createModelData(modelData);
+      // buildListingdata(newSample1)
+      createModelData(newSample1);
     });
-    function createData (listings) {
-      for (var i = 0; i < listings.length; i++) {
-        names.push(listings[i].name);
-        console.log(listings[i].listing_url);}}
-    function createModelData (models) {
-      for (var i = 0; i < models.length; i++) {
-        models.push(models[i].Name);
-        console.log(models[i].Name);
-        // selector1
-        // .on("click", function )
-      
-          }
-  }
+    // function createData (listings) {
+    //   for (var i = 0; i < listings.length; i++) {
+    //     names.push(listings[i].name);
+    //     console.log(listings[i].listing_url);}}
+  
 
   }
-
+  
+ 

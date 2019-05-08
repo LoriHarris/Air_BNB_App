@@ -151,15 +151,22 @@ def api_call(listing):
     y1 = test1['Price']
     # model=load_model("airbnb.h5")
 
-    # prediction=model.predict_classes(x)
     clf = RandomForestClassifier(n_estimators=11)
     scoring = 'accuracy'
     score = cross_val_score(clf, x1, y1, cv=k_fold, n_jobs=1, scoring=scoring)
     clf.fit(x1,y1)
+    # pred=()
     prediction1=clf.predict(x)
-    prediction=prediction1.tostring()
-    print(prediction1)
-    return((prediction))
+    if prediction1[0] >= y[0]:
+        pred='Great Deal'
+    else:
+        pred='Bad Deal'
+    prediction2=pd.DataFrame({"pred":pred, "sample":y})
+    prediction=prediction2.to_json(orient="records")
+    # print(prediction2)
+    # print(pred)
+    # prediction2
+    return(prediction)
     # print(test)
     # return(jsonify(listings1))
 
