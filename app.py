@@ -6,18 +6,18 @@ import pandas as pd
 import pymongo
 from pymongo import MongoClient
 import os
-from bson.objectid import ObjectId
-import pprint
+# from bson.objectid import ObjectId
+# import pprint
 import sys
 import json
 import pandas as pd
 import numpy as np
-import matplotlib.pyplot as plt
-import seaborn as sns
+# import matplotlib.pyplot as plt
+# import seaborn as sns
 
-import geopy
-from geopy import distance
-from geopy.distance import vincenty
+# import geopy
+# from geopy import distance
+# from geopy.distance import vincenty
 # from tqdm import tqdm
 # tqdm.pandas()
 import tensorflow as tf
