@@ -25,10 +25,27 @@ function buildListingdata(sample) {
   d3.select("#beds").text(data[0]['beds']);
   d3.select("#br").text(data[0]['bedrooms']);
   d3.select("#bath").text(data[0]['bathrooms']);
-  d3.select("#min").text(data[0]['minimum_nights']);
+  // d3.select("#min").text(data[0]['minimum_nights']);
 
   
   });
+}
+function buildRecommendation(sample){
+  d3.json(`/predict/${sample}`, function(data) {
+    var data = [data];
+  d3.select("#min").text(data[0][0]['pred']);
+  var message=data[0][0]['pred'];
+  console.log(data[0][0]['pred'])
+  if (message=='Great Deal!'){
+    // window.alert(message);
+  Swal.fire({
+    title: 'YeeHaw!!',
+    text: 'You Scored An Amazing Deal!',
+    type: 'info',
+    confirmButtonText: 'Cool'
+  })
+}
+});
 }
 
   var selector = d3.select("#selDataset");
@@ -45,6 +62,8 @@ function buildListingdata(sample) {
 
 
 names =[];
+models=[];
+console.log(names);
 var selector1 = d3.select("#selListing");
 var selector2 = d3.select()
 function optionChanged(newSample) {
@@ -72,18 +91,18 @@ function optionChanged(newSample) {
   function optionChanged1(newSample1) {
     d3.json(`url/${newSample1}`, function(listingData) {
       buildListingdata(newSample1)
-      createData(listingData);
+      // createData(listingData);
     });
-    function createData (listings) {
-      for (var i = 0; i < listings.length; i++) {
-        names.push(listings[i].name);
-        console.log(listings[i].listing_url);
-        // selector1
-        // .on("click", function )
-      
-          }
-  }
-
-  }
-
+    d3.json(`predict/${newSample1}`, function(modelData) {
+      // buildListingdata(newSample1)
+      buildRecommendation(newSample1);
+    });
+    // function createData (listings) {
+    //   for (var i = 0; i < listings.length; i++) {
+    //     names.push(listings[i].name);
+    //     console.log(listings[i].listing_url);}}
   
+
+  }
+  
+ 
