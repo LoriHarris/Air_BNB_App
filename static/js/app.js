@@ -36,7 +36,7 @@ function buildRecommendation(sample){
   d3.select("#min").text(data[0][0]['pred']);
   var message=data[0][0]['pred'];
   console.log(data[0][0]['pred'])
-  if (message=='Right on the money!'){
+  if (message=='Great Deal!'){
     // window.alert(message);
   Swal.fire({
     title: 'YeeHaw!!',
